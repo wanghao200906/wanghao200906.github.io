@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://img.blog.csdn.net/20171121145506529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ2hhbzIwMDkwNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171121150459253?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ2hhbzIwMDkwNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-11-21T09:32:19.000Z">
+<meta property="og:updated_time" content="2018-01-30T15:06:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码解读，support v4、v7包是如何实现向下兼容的">
 <meta name="twitter:description" content="写在前面上一篇文章 Android 字体国际化适配方法以及源码解析讲到了如何 适配各国语言长度不同的问题。 为了兼容低版本用到了V4 包。 用了那么久的v4包，但他是如何做到乡下兼容的呢？ 这次通过同一个适配的小例子来查看一下 。v4包是如何做到向下兼容的。 目的 了解v4 v7 是如何实现向下兼容的 AppCompatActivity是如何在Activity的基础上实现扩展的  看源码为了适配字">
@@ -437,9 +437,7 @@
 </ul>
 <p>这个时候我们发现 如果我们创建的Activity 如果不继承AppCompatActivity的话 好多控件的方法都无法做到向下兼容。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果你跟着一步步的读完，很佩服你的毅力。</p>
-<p>但并没什么暖用，还是得需要你自己合上网页，自己去androidstudio中，根据我的思路 看一篇源码，这样才有收获。</p>
-<p>同时这里面使用了 <strong>委派模式</strong> 来巧妙的 完成了。<br>那么我们下一篇 来看一下 这个委派模式 在我们的开发中是如何来实现的吧。</p>
-<p>629094669进群交流</p>
+<p>但并没什么暖用，还是得需要你自己合上网页，自己去androidstudio中，根据我的思路 看一篇源码，这样才有收获。<br>加油</p>
 
       
     </div>
