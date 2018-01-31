@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android7.0,apk安装兼容,FileProvider," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="源头都是因为一个bug 12android.os.FileUriExposedException:file:///storage/emulated/0/mwh/app.apk exposed beyond app through Intent.getData() 因为这个bug 显示 原来的 apk安装方法无法在高于7.0 的手机系统上安装apk了。 所以就得需要使用FileProvider 来做">
+<meta name="keywords" content="android7.0,apk安装兼容,FileProvider">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android 使用FileProvider 兼容apk 在7.0版本无法安装">
+<meta property="og:url" content="https://wanghao200906.github.io/2018/01/31/android 使用FileProvider 兼容apk 在7.0版本无法安装/index.html">
+<meta property="og:site_name" content="SvenWang_">
+<meta property="og:description" content="源头都是因为一个bug 12android.os.FileUriExposedException:file:///storage/emulated/0/mwh/app.apk exposed beyond app through Intent.getData() 因为这个bug 显示 原来的 apk安装方法无法在高于7.0 的手机系统上安装apk了。 所以就得需要使用FileProvider 来做">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.blog.csdn.net/20180131150023649?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ2hhbzIwMDkwNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-01-31T07:42:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android 使用FileProvider 兼容apk 在7.0版本无法安装">
+<meta name="twitter:description" content="源头都是因为一个bug 12android.os.FileUriExposedException:file:///storage/emulated/0/mwh/app.apk exposed beyond app through Intent.getData() 因为这个bug 显示 原来的 apk安装方法无法在高于7.0 的手机系统上安装apk了。 所以就得需要使用FileProvider 来做">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20180131150023649?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ2hhbzIwMDkwNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wanghao200906.github.io/2018/01/31/android 使用FileProvider 兼容apk 在7.0版本无法安装/"/>
+
+
+
+
+
+  <title>android 使用FileProvider 兼容apk 在7.0版本无法安装 | SvenWang_</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e94362f2d7da4024265ed38abdd34b98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SvenWang_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wanghao200906.github.io/2018/01/31/android 使用FileProvider 兼容apk 在7.0版本无法安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SvenWang_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SvenWang_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">android 使用FileProvider 兼容apk 在7.0版本无法安装</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-31T10:56:05+08:00">
+                2018-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android新特性/" itemprop="url" rel="index">
+                    <span itemprop="name">android新特性</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/31/android 使用FileProvider 兼容apk 在7.0版本无法安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/01/31/android 使用FileProvider 兼容apk 在7.0版本无法安装/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/01/31/android 使用FileProvider 兼容apk 在7.0版本无法安装/" class="leancloud_visitors" data-flag-title="android 使用FileProvider 兼容apk 在7.0版本无法安装">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="源头"><a href="#源头" class="headerlink" title="源头"></a>源头</h2><p>都是因为一个bug</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android.os.FileUriExposedException:</div><div class="line">file:///storage/emulated/0/mwh/app.apk exposed beyond app through Intent.getData()</div></pre></td></tr></table></figure>
+<p>因为这个bug 显示 原来的 apk安装方法无法在高于7.0 的手机系统上安装apk了。</p>
+<p>所以就得需要使用FileProvider 来做兼容</p>
+<h2 id="安装apk-兼容7-0以上系统"><a href="#安装apk-兼容7-0以上系统" class="headerlink" title="安装apk 兼容7.0以上系统"></a>安装apk 兼容7.0以上系统</h2><h3 id="配置mainfest-信息"><a href="#配置mainfest-信息" class="headerlink" title="配置mainfest 信息"></a>配置mainfest 信息</h3><p>在mainfest 的 application 中 添加如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">&lt;provider</div><div class="line">    android:name=&quot;android.support.v4.content.FileProvider&quot;</div><div class="line">    android:authorities=&quot;$&#123;applicationId&#125;.fileprovider&quot;</div><div class="line">    android:grantUriPermissions=&quot;true&quot;</div><div class="line">    android:exported=&quot;false&quot;&gt;</div><div class="line">    &lt;meta-data</div><div class="line">        android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;</div><div class="line">        android:resource=&quot;@xml/file_paths&quot; /&gt;</div><div class="line">&lt;/provider&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>android:authorities 这里使用的是包名。这个其实可以随便写，写成123 都可以。</li>
+<li>android:resource  这里配置一个 xml文件。名字也可以随便写 这里就叫 file_paths好了</li>
+</ul>
+<h3 id="配置xml-信息"><a href="#配置xml-信息" class="headerlink" title="配置xml 信息"></a>配置xml 信息</h3><p><img src="http://img.blog.csdn.net/20180131150023649?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ2hhbzIwMDkwNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;paths&gt;</div><div class="line">    &lt;external-path name=&quot;.&quot; path=&quot;.&quot;/&gt;</div><div class="line">&lt;/paths&gt;</div><div class="line">这里配置的很简单 ，</div><div class="line">external-path 是放到sd卡的目录下 Environment.getExternalStorageDirectory()</div><div class="line"></div><div class="line">path=&quot;.&quot; 代表共享 sd卡下的所有目录。手机会遍历sd卡下的所有目录，来匹配你要安装 的apk 的目录。。</div><div class="line">name=&quot;.&quot; 代表 你apk存放目录下所有apk的名字都会遍历一遍，然后跟你要安装的apk进行匹配</div></pre></td></tr></table></figure>
+<h3 id="安装apk代码"><a href="#安装apk代码" class="headerlink" title="安装apk代码"></a>安装apk代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line">  * 安装apk</div><div class="line">  *</div><div class="line">  * @param fileSavePath</div><div class="line">  */</div><div class="line"> private void installApk(String fileSavePath) &#123;</div><div class="line">     File file = new File(fileSavePath);</div><div class="line">     Intent intent = new Intent(Intent.ACTION_VIEW);</div><div class="line">     Uri data;</div><div class="line">     if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.N) &#123;//判断版本大于等于7.0</div><div class="line">         // &quot;com.ansen.fileprovider.fileprovider&quot;即是在清单文件中配置的authorities</div><div class="line">         // 通过FileProvider创建一个content类型的Uri</div><div class="line">         data = FileProvider.getUriForFile(this, &quot;sven.com.fileprovider.fileprovider&quot;, file);</div><div class="line">         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);// 给目标应用一个临时授权</div><div class="line">     &#125; else &#123;</div><div class="line">         data = Uri.fromFile(file);</div><div class="line">     &#125;</div><div class="line">     intent.setDataAndType(data, &quot;application/vnd.android.package-archive&quot;);</div><div class="line">     startActivity(intent);</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>##其他<br>为了演示效果。我把事先准备好的apk。放到了assets 目录下<br>点击安装 按钮，会把apk 赋值到 指定目录下，然后在 进行安装操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> * 如果sdcard没有文件就复制过去</div><div class="line"> */</div><div class="line">private String copyFile() &#123;</div><div class="line">    AssetManager assetManager = this.getAssets();</div><div class="line">    String newFilePath = Environment.getExternalStorageDirectory() +&quot;/mwh/app-release.apk&quot;;</div><div class="line">    String Path = Environment.getExternalStorageDirectory() + &quot;/mwh&quot;;</div><div class="line">    try &#123;</div><div class="line">        File file1 = new File(Path);</div><div class="line"></div><div class="line">        if (!file1.exists()) &#123;</div><div class="line">            file1.mkdir();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        File file = new File(newFilePath);</div><div class="line">        if (!file.exists()) &#123;//文件不存在才复制</div><div class="line">            InputStream in = assetManager.open(&quot;app-release.apk&quot;);</div><div class="line">            OutputStream out = new FileOutputStream(newFilePath);</div><div class="line">            byte[] buffer = new byte[1024];</div><div class="line">            int read;</div><div class="line">            while ((read = in.read(buffer)) != -1) &#123;</div><div class="line">                out.write(buffer, 0, read);</div><div class="line">            &#125;</div><div class="line">            in.close();</div><div class="line">            out.flush();</div><div class="line">            out.close();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125; catch (Exception e) &#123;</div><div class="line">        Log.e(TAG, e.getMessage());</div><div class="line">    &#125;</div><div class="line">    return newFilePath;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>注意</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String newFilePath = Environment.getExternalStorageDirectory() +&quot;/mwh/app-release.apk&quot;;</div></pre></td></tr></table></figure>
+<p>这里的目录是 sd 卡目录下的mwh 文件夹。我们直接使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;paths&gt;</div><div class="line">    &lt;external-path name=&quot;.&quot; path=&quot;.&quot;/&gt;</div><div class="line">&lt;/paths&gt;</div><div class="line">就可以了。</div></pre></td></tr></table></figure>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>到这里就结束了。 不懂的可以把代码下载下来 试一下<br><a href="https://github.com/wanghao200906/FileProviderDemo" target="_blank" rel="external">https://github.com/wanghao200906/FileProviderDemo</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>你是我最大的动力</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weichatpay.png" alt="SvenWang_ 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifupay.png" alt="SvenWang_ 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android7-0/" rel="tag"># android7.0</a>
+          
+            <a href="/tags/apk安装兼容/" rel="tag"># apk安装兼容</a>
+          
+            <a href="/tags/FileProvider/" rel="tag"># FileProvider</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/25/AndroidStudio3.0 NDK开发- 如何在已有项目中进行NDK开发/" rel="next" title="AndroidStudio3.0 NDK开发- 如何在已有项目中进行NDK开发">
+                <i class="fa fa-chevron-left"></i> AndroidStudio3.0 NDK开发- 如何在已有项目中进行NDK开发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">SvenWang_</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#源头"><span class="nav-number">1.</span> <span class="nav-text">源头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装apk-兼容7-0以上系统"><span class="nav-number">2.</span> <span class="nav-text">安装apk 兼容7.0以上系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置mainfest-信息"><span class="nav-number">2.1.</span> <span class="nav-text">配置mainfest 信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置xml-信息"><span class="nav-number">2.2.</span> <span class="nav-text">配置xml 信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装apk代码"><span class="nav-number">2.3.</span> <span class="nav-text">安装apk代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">3.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SvenWang_</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'wanghao200906',
+            repo: 'wanghao200906.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd95fe34a0463ed755102b2451ae2b6b7f2293a2a',
+            
+                client_id: 'aa204a3bf83f603cd5ca'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UyJRl9DO8EikKEe0tMVxwBep-gzGzoHsz", "gW3lDREbUNVjAJaaPsSXWmx5");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
