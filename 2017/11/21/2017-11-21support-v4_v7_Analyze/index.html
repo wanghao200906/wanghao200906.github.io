@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android8.0,国际化适配,看源码," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="写在前面上一篇文章 Android 字体国际化适配方法以及源码解析讲到了如何 适配各国语言长度不同的问题。 为了兼容低版本用到了V4 包。 用了那么久的v4包，但他是如何做到乡下兼容的呢？ 这次通过同一个适配的小例子来查看一下 。v4包是如何做到向下兼容的。 目的 了解v4 v7 是如何实现向下兼容的 AppCompatActivity是如何在Activity的基础上实现扩展的  看源码为了适配字">
+<meta name="keywords" content="android8.0,国际化适配,看源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="源码解读，support v4、v7包是如何实现向下兼容的">
+<meta property="og:url" content="https://wanghao200906.github.io/2017/11/21/2017-11-21support-v4_v7_Analyze/index.html">
+<meta property="og:site_name" content="SvenWang_">
+<meta property="og:description" content="写在前面上一篇文章 Android 字体国际化适配方法以及源码解析讲到了如何 适配各国语言长度不同的问题。 为了兼容低版本用到了V4 包。 用了那么久的v4包，但他是如何做到乡下兼容的呢？ 这次通过同一个适配的小例子来查看一下 。v4包是如何做到向下兼容的。 目的 了解v4 v7 是如何实现向下兼容的 AppCompatActivity是如何在Activity的基础上实现扩展的  看源码为了适配字">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.blog.csdn.net/20171121145506529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ2hhbzIwMDkwNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171121150459253?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ2hhbzIwMDkwNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-01-30T15:06:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="源码解读，support v4、v7包是如何实现向下兼容的">
+<meta name="twitter:description" content="写在前面上一篇文章 Android 字体国际化适配方法以及源码解析讲到了如何 适配各国语言长度不同的问题。 为了兼容低版本用到了V4 包。 用了那么久的v4包，但他是如何做到乡下兼容的呢？ 这次通过同一个适配的小例子来查看一下 。v4包是如何做到向下兼容的。 目的 了解v4 v7 是如何实现向下兼容的 AppCompatActivity是如何在Activity的基础上实现扩展的  看源码为了适配字">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171121145506529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ2hhbzIwMDkwNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wanghao200906.github.io/2017/11/21/2017-11-21support-v4_v7_Analyze/"/>
+
+
+
+
+
+  <title>源码解读，support v4、v7包是如何实现向下兼容的 | SvenWang_</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e94362f2d7da4024265ed38abdd34b98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SvenWang_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wanghao200906.github.io/2017/11/21/2017-11-21support-v4_v7_Analyze/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SvenWang_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SvenWang_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">源码解读，support v4、v7包是如何实现向下兼容的</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-21T16:11:36+08:00">
+                2017-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/看源码系列/" itemprop="url" rel="index">
+                    <span itemprop="name">看源码系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/21/2017-11-21support-v4_v7_Analyze/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/11/21/2017-11-21support-v4_v7_Analyze/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/11/21/2017-11-21support-v4_v7_Analyze/" class="leancloud_visitors" data-flag-title="源码解读，support v4、v7包是如何实现向下兼容的">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>上一篇文章 <a href="https://wanghao200906.github.io/2017/11/20/Android-%E5%AD%97%E4%BD%93%E5%9B%BD%E9%99%85%E5%8C%96%E9%80%82%E9%85%8D%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8A%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">Android 字体国际化适配方法以及源码解析</a><br>讲到了如何 适配各国语言长度不同的问题。</p>
+<p>为了兼容低版本用到了V4 包。</p>
+<p>用了那么久的v4包，但他是如何做到乡下兼容的呢？</p>
+<p>这次通过同一个适配的小例子来查看一下 。v4包是如何做到向下兼容的。</p>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>了解v4 v7 是如何实现向下兼容的</li>
+<li>AppCompatActivity是如何在Activity的基础上实现扩展的</li>
+</ul>
+<h2 id="看源码"><a href="#看源码" class="headerlink" title="看源码"></a>看源码</h2><p>为了适配字体，我们用了v4包下的这些方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public static void setAutoSizeTextTypeWithDefaults(</div><div class="line">           TextView textView,</div><div class="line">           int autoSizeTextType) 设置字体类型</div><div class="line"></div><div class="line"></div><div class="line">public static void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">            TextView textView,</div><div class="line">            int autoSizeMinTextSize,</div><div class="line">            int autoSizeMaxTextSize,</div><div class="line">            int autoSizeStepGranularity, 设置颗粒度 字体变大变小的幅度，默认是1</div><div class="line">            int unit)</div><div class="line"></div><div class="line">public static void setAutoSizeTextTypeUniformWithPresetSizes(</div><div class="line">            TextView textView,</div><div class="line">            @NonNull int[] presetSizes,  设置字体预设值，字体的变化只会在预设的几个值内变化</div><div class="line">            int unit)</div></pre></td></tr></table></figure>
+<p>并且在上一篇中详细的讲解了 setAutoSizeTextTypeUniformWithConfiguration 方法是如何做到适配的。<br>但是 我们在上一篇中 是讲解的 TextView 类中的 setAutoSizeTextTypeUniformWithConfiguration 方法，是如何适配的<br>其实TextView中的方法在低于sdk-26的时候是不会调用的。<br>但是在v4包中 有一个也叫作setAutoSizeTextTypeUniformWithConfiguration 的方法和TextView中是一样的。</p>
+<p><strong>如何适配呢。必须是android 包中有该方法，但某些版本不适用，所以在v4 v7包中，实现一个 方法原理 一样的 方法。供低版本使用。 马上就想到了 委派模式 </strong></p>
+<p>首先来看这个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">这个是v4包中的 字体适配的方法。</div><div class="line">    public static void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">            TextView textView,</div><div class="line">            int autoSizeMinTextSize,</div><div class="line">            int autoSizeMaxTextSize,</div><div class="line">            int autoSizeStepGranularity,</div><div class="line">            int unit) throws IllegalArgumentException &#123;</div><div class="line">        IMPL.setAutoSizeTextTypeUniformWithConfiguration(textView, autoSizeMinTextSize,</div><div class="line">                autoSizeMaxTextSize, autoSizeStepGranularity, unit);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>在看IMPL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">static final TextViewCompatBaseImpl IMPL;</div><div class="line"></div><div class="line">static &#123;</div><div class="line">    if (Build.VERSION.SDK_INT &gt;= 26) &#123;</div><div class="line">        IMPL = new TextViewCompatApi26Impl();</div><div class="line">    &#125; else if (Build.VERSION.SDK_INT &gt;= 23) &#123;</div><div class="line">        IMPL = new TextViewCompatApi23Impl();</div><div class="line">    &#125; else if (Build.VERSION.SDK_INT &gt;= 18) &#123;</div><div class="line">        IMPL = new TextViewCompatApi18Impl();</div><div class="line">    &#125; else if (Build.VERSION.SDK_INT &gt;= 17) &#123;</div><div class="line">        IMPL = new TextViewCompatApi17Impl();</div><div class="line">    &#125; else if (Build.VERSION.SDK_INT &gt;= 16) &#123;</div><div class="line">        IMPL = new TextViewCompatApi16Impl();</div><div class="line">    &#125; else &#123;</div><div class="line">        IMPL = new TextViewCompatBaseImpl();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面代码中 TextViewCompatApi26Impl 方法继承自TextViewCompatApi23Impl ，然后所有的方法都是继承自 TextViewCompatBaseImpl</p>
+<p> 先看TextViewCompatApi26Impl 方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RequiresApi(26)</div><div class="line">static class TextViewCompatApi26Impl extends TextViewCompatApi23Impl &#123;</div><div class="line"></div><div class="line">  ...省略</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">            TextView textView,</div><div class="line">            int autoSizeMinTextSize,</div><div class="line">            int autoSizeMaxTextSize,</div><div class="line">            int autoSizeStepGranularity,</div><div class="line">            int unit) throws IllegalArgumentException &#123;</div><div class="line">        textView.setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">                autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">   ...省略</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可见该类继承自TextViewCompatApi23Impl<br>这里有我们前面说的那三个方法。但是改方法只能在sdk大于26 才会使用</p>
+<p>假如我们的sdk版本号不大于26呢？<br>我们不断的看 TextViewCompatApi26Impl 的父类。最终查看到<br>TextViewCompatBaseImpl 方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> static class TextViewCompatBaseImpl &#123;</div><div class="line">     ...省略</div><div class="line">     public void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">             TextView textView,</div><div class="line">             int autoSizeMinTextSize,</div><div class="line">             int autoSizeMaxTextSize,</div><div class="line">             int autoSizeStepGranularity,</div><div class="line">             int unit) throws IllegalArgumentException &#123;</div><div class="line">         if (textView instanceof AutoSizeableTextView) &#123;</div><div class="line">             ((AutoSizeableTextView) textView).setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">                     autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"></div><div class="line">...省略</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>在这里也发现了setAutoSizeTextTypeUniformWithConfiguration 方法。继续看他的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">if (textView instanceof AutoSizeableTextView) &#123;</div><div class="line">                ((AutoSizeableTextView) textView).setAutoSizeTextTypeUniformWithPresetSizes(</div><div class="line">                        presetSizes, unit);</div><div class="line">            &#125;</div><div class="line">//判断textview 是否是实现过 AutoSizeableTextView 方法</div><div class="line"></div><div class="line">AutoSizeableTextView 是一个借口类</div></pre></td></tr></table></figure>
+<p>不要慌，我们全局查看 AutoSizeableTextView 方法<br>在AutoSizeableTextView 方法中，右键，选择Find Usages</p>
+<p><img src="http://img.blog.csdn.net/20171121145506529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ2hhbzIwMDkwNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>发现在三个类里面使用过。<br>TextViewCompat 方法 不需要看了。</p>
+<p>下面看AppCompatTextView 方法 （support.v7下的）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">public class AppCompatTextView extends TextView implements TintableBackgroundView,</div><div class="line">        AutoSizeableTextView &#123;</div><div class="line">		...省略</div><div class="line"></div><div class="line"></div><div class="line">    /**</div><div class="line">     * This should be accessed via</div><div class="line">     * &#123;@link android.support.v4.widget.TextViewCompat#setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">     *        TextView, int, int, int, int)&#125;</div><div class="line">     *</div><div class="line">     * @hide</div><div class="line">     */</div><div class="line">    @RestrictTo(LIBRARY_GROUP)</div><div class="line">    @Override</div><div class="line">    public void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">            int autoSizeMinTextSize,</div><div class="line">            int autoSizeMaxTextSize,</div><div class="line">            int autoSizeStepGranularity,</div><div class="line">            int unit) throws IllegalArgumentException &#123;</div><div class="line">        if (Build.VERSION.SDK_INT &gt;= 26) &#123;</div><div class="line">            super.setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">                    autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);</div><div class="line">        &#125; else &#123;</div><div class="line">            if (mTextHelper != null) &#123;</div><div class="line">                mTextHelper.setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">                        autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">		...省略</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里就很明朗了。如果sdk大于26，使用TextView中的方法。如果不大于26.使用mTextHelper 下的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RequiresApi(9)</div><div class="line">class AppCompatTextHelper &#123;</div><div class="line">	   ...省略</div><div class="line">    void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">            int autoSizeMinTextSize,</div><div class="line">            int autoSizeMaxTextSize,</div><div class="line">            int autoSizeStepGranularity,</div><div class="line">            int unit) throws IllegalArgumentException &#123;</div><div class="line">        mAutoSizeTextHelper.setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">                autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);</div><div class="line">    &#125;</div><div class="line">		...省略</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">class AppCompatTextViewAutoSizeHelper &#123;</div><div class="line">		...省略</div><div class="line"> @RestrictTo(LIBRARY_GROUP)</div><div class="line">    void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">            int autoSizeMinTextSize,</div><div class="line">            int autoSizeMaxTextSize,</div><div class="line">            int autoSizeStepGranularity,</div><div class="line">            int unit) throws IllegalArgumentException &#123;</div><div class="line">        if (supportsAutoSizeText()) &#123;</div><div class="line">            final DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();</div><div class="line">            final float autoSizeMinTextSizeInPx = TypedValue.applyDimension(</div><div class="line">                    unit, autoSizeMinTextSize, displayMetrics);</div><div class="line">            final float autoSizeMaxTextSizeInPx = TypedValue.applyDimension(</div><div class="line">                    unit, autoSizeMaxTextSize, displayMetrics);</div><div class="line">            final float autoSizeStepGranularityInPx = TypedValue.applyDimension(</div><div class="line">                    unit, autoSizeStepGranularity, displayMetrics);</div><div class="line"></div><div class="line">            validateAndSetAutoSizeTextTypeUniformConfiguration(autoSizeMinTextSizeInPx,</div><div class="line">                    autoSizeMaxTextSizeInPx,</div><div class="line">                    autoSizeStepGranularityInPx);</div><div class="line">            if (setupAutoSizeText()) &#123;</div><div class="line">                autoSizeText();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">		...省略</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看到这里我们就发现和TextView 中的方法是一样的了。如果想跟进一步了解接下来代码实现的原理。可以查看上一篇<br> <a href="http://blog.csdn.net/wanghao200906/article/details/78522907" target="_blank" rel="external">Android 字体国际化适配方法以及源码解析</a></p>
+<p>到这里我们肯定有一个疑惑。这个方法是在 AppCompatTextView 中。我们有没有使用这个方法。</p>
+<p>我们全局搜一下 AppCompatTextView 方法<br><img src="http://img.blog.csdn.net/20171121150459253?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2FuZ2hhbzIwMDkwNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>我们查看该方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">class AppCompatViewInflater &#123;</div><div class="line"></div><div class="line">		...省略</div><div class="line"></div><div class="line">    public final View createView(View parent, final String name, @NonNull Context context,</div><div class="line">            @NonNull AttributeSet attrs, boolean inheritContext,</div><div class="line">            boolean readAndroidTheme, boolean readAppTheme, boolean wrapContext) &#123;</div><div class="line">        final Context originalContext = context;</div><div class="line"></div><div class="line">        // We can emulate Lollipop&apos;s android:theme attribute propagating down the view hierarchy</div><div class="line">        // by using the parent&apos;s context</div><div class="line">        if (inheritContext &amp;&amp; parent != null) &#123;</div><div class="line">            context = parent.getContext();</div><div class="line">        &#125;</div><div class="line">        if (readAndroidTheme || readAppTheme) &#123;</div><div class="line">            // We then apply the theme on the context, if specified</div><div class="line">            context = themifyContext(context, attrs, readAndroidTheme, readAppTheme);</div><div class="line">        &#125;</div><div class="line">        if (wrapContext) &#123;</div><div class="line">            context = TintContextWrapper.wrap(context);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        View view = null;</div><div class="line"></div><div class="line">        // We need to &apos;inject&apos; our tint aware Views in place of the standard framework versions</div><div class="line">        switch (name) &#123;</div><div class="line">            case &quot;TextView&quot;:</div><div class="line">                view = new AppCompatTextView(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;ImageView&quot;:</div><div class="line">                view = new AppCompatImageView(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;Button&quot;:</div><div class="line">                view = new AppCompatButton(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;EditText&quot;:</div><div class="line">                view = new AppCompatEditText(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;Spinner&quot;:</div><div class="line">                view = new AppCompatSpinner(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;ImageButton&quot;:</div><div class="line">                view = new AppCompatImageButton(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;CheckBox&quot;:</div><div class="line">                view = new AppCompatCheckBox(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;RadioButton&quot;:</div><div class="line">                view = new AppCompatRadioButton(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;CheckedTextView&quot;:</div><div class="line">                view = new AppCompatCheckedTextView(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;AutoCompleteTextView&quot;:</div><div class="line">                view = new AppCompatAutoCompleteTextView(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;MultiAutoCompleteTextView&quot;:</div><div class="line">                view = new AppCompatMultiAutoCompleteTextView(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;RatingBar&quot;:</div><div class="line">                view = new AppCompatRatingBar(context, attrs);</div><div class="line">                break;</div><div class="line">            case &quot;SeekBar&quot;:</div><div class="line">                view = new AppCompatSeekBar(context, attrs);</div><div class="line">                break;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (view == null &amp;&amp; originalContext != context) &#123;</div><div class="line">            // If the original context does not equal our themed context, then we need to manually</div><div class="line">            // inflate it using the name so that android:theme takes effect.</div><div class="line">            view = createViewFromTag(context, name, attrs);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (view != null) &#123;</div><div class="line">            // If we have created a view, check its android:onClick</div><div class="line">            checkOnClickListener(view, attrs);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return view;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">		...省略</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我看到这里突然感觉豁然开朗。</p>
+<p>原来那么多控件都是在这里new 出来的。</p>
+<p>到这里基本能理解 是v4 v7包是如何做到向下兼容的了。</p>
+<p>但还不过瘾，直觉告诉我这个肯定跟AppCompatActivity 有关系。</p>
+<p>我们在全局搜索这个 createView 方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@RequiresApi(14)</div><div class="line">class AppCompatDelegateImplV9 extends AppCompatDelegateImplBase</div><div class="line">        implements MenuBuilder.Callback, LayoutInflater.Factory2 &#123;</div><div class="line"></div><div class="line">	...省略</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public View createView(View parent, final String name, @NonNull Context context,</div><div class="line">            @NonNull AttributeSet attrs) &#123;</div><div class="line">        if (mAppCompatViewInflater == null) &#123;</div><div class="line">            mAppCompatViewInflater = new AppCompatViewInflater();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        boolean inheritContext = false;</div><div class="line">        if (IS_PRE_LOLLIPOP) &#123;</div><div class="line">            inheritContext = (attrs instanceof XmlPullParser)</div><div class="line">                    // If we have a XmlPullParser, we can detect where we are in the layout</div><div class="line">                    ? ((XmlPullParser) attrs).getDepth() &gt; 1</div><div class="line">                    // Otherwise we have to use the old heuristic</div><div class="line">                    : shouldInheritContext((ViewParent) parent);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return mAppCompatViewInflater.createView(parent, name, context, attrs, inheritContext,</div><div class="line">                IS_PRE_LOLLIPOP, /* Only read android:theme pre-L (L+ handles this anyway) */</div><div class="line">                true, /* Read read app:theme as a fallback at all times for legacy reasons */</div><div class="line">                VectorEnabledTintResources.shouldBeUsed() /* Only tint wrap the context if enabled */</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">			...省略</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>AppCompatDelegateImplV9 感觉像是最低版本支持sdk9 的样子 是一个 委派<br>看看哪里调用该方法呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public abstract class AppCompatDelegate &#123;</div><div class="line"></div><div class="line">	...省略</div><div class="line"> /**</div><div class="line">     * Create a &#123;@link android.support.v7.app.AppCompatDelegate&#125; to use with &#123;@code activity&#125;.</div><div class="line">     *</div><div class="line">     * @param callback An optional callback for AppCompat specific events</div><div class="line">     * 用于扩展activity</div><div class="line">     */</div><div class="line">    public static AppCompatDelegate create(Activity activity, AppCompatCallback callback) &#123;</div><div class="line">        return create(activity, activity.getWindow(), callback);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    /**</div><div class="line">     * Create a &#123;@link android.support.v7.app.AppCompatDelegate&#125; to use with &#123;@code dialog&#125;.</div><div class="line">     *  用于扩展dialog</div><div class="line">     * @param callback An optional callback for AppCompat specific events</div><div class="line">     */</div><div class="line">    public static AppCompatDelegate create(Dialog dialog, AppCompatCallback callback) &#123;</div><div class="line">        return create(dialog.getContext(), dialog.getWindow(), callback);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private static AppCompatDelegate create(Context context, Window window,</div><div class="line">            AppCompatCallback callback) &#123;</div><div class="line">        if (Build.VERSION.SDK_INT &gt;= 24) &#123;</div><div class="line">            return new AppCompatDelegateImplN(context, window, callback);</div><div class="line">        &#125; else if (Build.VERSION.SDK_INT &gt;= 23) &#123;</div><div class="line">            return new AppCompatDelegateImplV23(context, window, callback);</div><div class="line">        &#125; else if (Build.VERSION.SDK_INT &gt;= 14) &#123;</div><div class="line">            return new AppCompatDelegateImplV14(context, window, callback);</div><div class="line">        &#125; else if (Build.VERSION.SDK_INT &gt;= 11) &#123;</div><div class="line">            return new AppCompatDelegateImplV11(context, window, callback);</div><div class="line">        &#125; else &#123;</div><div class="line">            return new AppCompatDelegateImplV9(context, window, callback);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //到这里我们又发现了sdk版本号的判断。和之前在TextViewCompact方法中遇到的是一样的</div><div class="line"></div><div class="line">    ...省略</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>AppCompatDelegate 类是一个 委派类，用来实现activity的扩展。<br>我们继续查看这个AppCompatDelegate 下的create 在哪里用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">public class AppCompatActivity extends FragmentActivity implements AppCompatCallback,</div><div class="line">        TaskStackBuilder.SupportParentable, ActionBarDrawerToggle.DelegateProvider &#123;</div><div class="line"></div><div class="line">    ...省略</div><div class="line"></div><div class="line">    private AppCompatDelegate mDelegate;</div><div class="line"></div><div class="line">    @SuppressWarnings(&quot;TypeParameterUnusedInFormals&quot;)</div><div class="line">    @Override</div><div class="line">    public &lt;T extends View&gt; T findViewById(@IdRes int id) &#123;</div><div class="line">        return getDelegate().findViewById(id);</div><div class="line">    &#125;</div><div class="line">    /**</div><div class="line">     * @return The &#123;@link AppCompatDelegate&#125; being used by this Activity.</div><div class="line">     */</div><div class="line">    @NonNull</div><div class="line">    public AppCompatDelegate getDelegate() &#123;</div><div class="line">        if (mDelegate == null) &#123;</div><div class="line">            mDelegate = AppCompatDelegate.create(this, this);</div><div class="line">        &#125;</div><div class="line">        return mDelegate;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ...省略</div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>可以发现这个方法 在AppCompatActivity 中使用了。并且每次findviewbyid都会调用。</li>
+<li>不仅如此 生命周期中也会调用getDelegate() 方法。</li>
+</ul>
+<p>这个时候我们发现 如果我们创建的Activity 如果不继承AppCompatActivity的话 好多控件的方法都无法做到向下兼容。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果你跟着一步步的读完，很佩服你的毅力。</p>
+<p>但并没什么暖用，还是得需要你自己合上网页，自己去androidstudio中，根据我的思路 看一篇源码，这样才有收获。<br>加油</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>你是我最大的动力</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weichatpay.png" alt="SvenWang_ 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifupay.png" alt="SvenWang_ 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android8-0/" rel="tag"># android8.0</a>
+          
+            <a href="/tags/国际化适配/" rel="tag"># 国际化适配</a>
+          
+            <a href="/tags/看源码/" rel="tag"># 看源码</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/20/2017-11-20Android_TextView_Analyze/" rel="next" title="Android 字体国际化适配方法以及源码解析">
+                <i class="fa fa-chevron-left"></i> Android 字体国际化适配方法以及源码解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/25/2018-1-25AndroidStudio3.0NDK_Dev_init/" rel="prev" title="AndroidStudio3.0 NDK开发- 如何在已有项目中进行NDK开发">
+                AndroidStudio3.0 NDK开发- 如何在已有项目中进行NDK开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">SvenWang_</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">2.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#看源码"><span class="nav-number">3.</span> <span class="nav-text">看源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SvenWang_</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'wanghao200906',
+            repo: 'wanghao200906.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd95fe34a0463ed755102b2451ae2b6b7f2293a2a',
+            
+                client_id: 'aa204a3bf83f603cd5ca'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UyJRl9DO8EikKEe0tMVxwBep-gzGzoHsz", "gW3lDREbUNVjAJaaPsSXWmx5");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

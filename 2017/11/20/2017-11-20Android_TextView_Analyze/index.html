@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android8.0,国际化适配,NKD," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="起源由于我们公司的app,支持多国语言，所以就导致了 同样的文案，但是长度不同，就会出现适配的问题，因为 中文 是 字表义，外文是 音表义。 今天就用8.0新特新来解决这个问题。 适配前是这样的 在固定的宽高就会出现适配的问题，在之前博客中也写过解决方案多语言适配，让text自动改变大小但现在谷歌已经完全解决了该问题，我们就直接用谷歌的了。 适配方法只支持最低版本是26的方法 12345andro">
+<meta name="keywords" content="android8.0,国际化适配,NKD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 字体国际化适配方法以及源码解析">
+<meta property="og:url" content="https://wanghao200906.github.io/2017/11/20/2017-11-20Android_TextView_Analyze/index.html">
+<meta property="og:site_name" content="SvenWang_">
+<meta property="og:description" content="起源由于我们公司的app,支持多国语言，所以就导致了 同样的文案，但是长度不同，就会出现适配的问题，因为 中文 是 字表义，外文是 音表义。 今天就用8.0新特新来解决这个问题。 适配前是这样的 在固定的宽高就会出现适配的问题，在之前博客中也写过解决方案多语言适配，让text自动改变大小但现在谷歌已经完全解决了该问题，我们就直接用谷歌的了。 适配方法只支持最低版本是26的方法 12345andro">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/9083778-82d3dbc66419661f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/9083778-45fee5824cd29680.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/9083778-22fbc64382fec105.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/9083778-f9e0f32e1ff6a554.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/9083778-d93de933cf29f82d?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/9083778-d51db6699a26ee8b?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2018-01-30T15:06:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 字体国际化适配方法以及源码解析">
+<meta name="twitter:description" content="起源由于我们公司的app,支持多国语言，所以就导致了 同样的文案，但是长度不同，就会出现适配的问题，因为 中文 是 字表义，外文是 音表义。 今天就用8.0新特新来解决这个问题。 适配前是这样的 在固定的宽高就会出现适配的问题，在之前博客中也写过解决方案多语言适配，让text自动改变大小但现在谷歌已经完全解决了该问题，我们就直接用谷歌的了。 适配方法只支持最低版本是26的方法 12345andro">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/9083778-82d3dbc66419661f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wanghao200906.github.io/2017/11/20/2017-11-20Android_TextView_Analyze/"/>
+
+
+
+
+
+  <title>Android 字体国际化适配方法以及源码解析 | SvenWang_</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e94362f2d7da4024265ed38abdd34b98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SvenWang_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wanghao200906.github.io/2017/11/20/2017-11-20Android_TextView_Analyze/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SvenWang_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SvenWang_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 字体国际化适配方法以及源码解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-20T10:56:05+08:00">
+                2017-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android新特性/" itemprop="url" rel="index">
+                    <span itemprop="name">android新特性</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/20/2017-11-20Android_TextView_Analyze/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/11/20/2017-11-20Android_TextView_Analyze/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/11/20/2017-11-20Android_TextView_Analyze/" class="leancloud_visitors" data-flag-title="Android 字体国际化适配方法以及源码解析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h2><p>由于我们公司的app,支持多国语言，所以就导致了 同样的文案，但是长度不同，就会出现适配的问题，因为 中文 是 字表义，外文是 音表义。 今天就用8.0新特新来解决这个问题。</p>
+<h3 id="适配前是这样的"><a href="#适配前是这样的" class="headerlink" title="适配前是这样的"></a>适配前是这样的</h3><p><img src="http://upload-images.jianshu.io/upload_images/9083778-82d3dbc66419661f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>在固定的宽高就会出现适配的问题，在之前博客中也写过解决方案<br><a href="http://blog.csdn.net/wanghao200906/article/details/50802875" target="_blank" rel="external">多语言适配，让text自动改变大小</a><br>但现在谷歌已经完全解决了该问题，我们就直接用谷歌的了。</p>
+<h2 id="适配方法"><a href="#适配方法" class="headerlink" title="适配方法"></a>适配方法</h2><p>只支持最低版本是26的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">android:autoSizeTextType=&quot;uniform&quot; 设置字体类型</div><div class="line">   android:autoSizeMinTextSize=&quot;12sp&quot;  设置最大值</div><div class="line">   android:autoSizeMaxTextSize=&quot;100sp&quot;  设置最小值</div><div class="line">   android:autoSizeStepGranularity=&quot;2sp&quot;  设置颗粒度</div><div class="line">android:autoSizePresetSizes=&quot;@array/autosize_text_sizes&quot; 预设字体的大小</div></pre></td></tr></table></figure>
+<p>但是现在基本最低版本都是14。 v4包提供了一些方法解决此问题，一共有三个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public static void setAutoSizeTextTypeWithDefaults(</div><div class="line">           TextView textView,</div><div class="line">           int autoSizeTextType) 设置字体类型</div><div class="line"></div><div class="line"></div><div class="line">public static void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">            TextView textView,</div><div class="line">            int autoSizeMinTextSize,</div><div class="line">            int autoSizeMaxTextSize,</div><div class="line">            int autoSizeStepGranularity, 设置颗粒度 字体变大变小的幅度，默认是1</div><div class="line">            int unit)</div><div class="line"></div><div class="line">public static void setAutoSizeTextTypeUniformWithPresetSizes(</div><div class="line">			TextView textView,</div><div class="line">            @NonNull int[] presetSizes,  设置字体预设值，字体的变化只会在预设的几个值内变化</div><div class="line">            int unit)</div></pre></td></tr></table></figure>
+<h3 id="适配后"><a href="#适配后" class="headerlink" title="适配后"></a>适配后</h3><p><img src="http://upload-images.jianshu.io/upload_images/9083778-45fee5824cd29680.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如果只想显示一行代码</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9083778-22fbc64382fec105.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> * Created by wanghao on 2017/11/13.</div><div class="line"> */</div><div class="line"></div><div class="line">public class MultiLanguageTextViewActivity extends AppCompatActivity &#123;</div><div class="line">    TextView tv_content_cs;</div><div class="line">    TextView tv_content_us;</div><div class="line">    TextView tv_content_fa;</div><div class="line">    TextView tv_content_ru;</div><div class="line">    LinearLayout ll_content;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.multi_language);</div><div class="line">        tv_content_cs = findViewById(R.id.tv_content_cs);</div><div class="line">        tv_content_us = findViewById(R.id.tv_content_us);</div><div class="line">        tv_content_fa = findViewById(R.id.tv_content_fa);</div><div class="line">        tv_content_ru = findViewById(R.id.tv_content_ru);</div><div class="line">        ll_content = findViewById(R.id.ll_content);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onCreateOptionsMenu(Menu menu) &#123;</div><div class="line">        getMenuInflater().inflate(R.menu.menu, menu);</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onOptionsItemSelected(MenuItem item) &#123;</div><div class="line">        int id = item.getItemId();</div><div class="line"></div><div class="line">        //noinspection SimplifiableIfStatement</div><div class="line">        switch (id) &#123;</div><div class="line">            case R.id.action_none:</div><div class="line">                AutoSizingAdapter(TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE);</div><div class="line">                break;</div><div class="line">            case R.id.action_uniform:</div><div class="line">                setLine(2);</div><div class="line">                AutoSizingAdapter(TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);</div><div class="line"></div><div class="line">                break;</div><div class="line">            case R.id.action_singleLine:</div><div class="line">                setLine(1);</div><div class="line">                AutoSizingAdapter(TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);</div><div class="line"></div><div class="line">                break;</div><div class="line">        &#125;</div><div class="line">        return super.onOptionsItemSelected(item);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setLine(int lineNum) &#123;</div><div class="line">        tv_content_cs.setLines(lineNum);</div><div class="line">        tv_content_us.setLines(lineNum);</div><div class="line">        tv_content_fa.setLines(lineNum);</div><div class="line">        tv_content_ru.setLines(lineNum);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void AutoSizingAdapter(int type) &#123;</div><div class="line">        TextViewCompat.setAutoSizeTextTypeWithDefaults(tv_content_cs, type);</div><div class="line">        TextViewCompat.setAutoSizeTextTypeWithDefaults(tv_content_us, type);</div><div class="line">        TextViewCompat.setAutoSizeTextTypeWithDefaults(tv_content_fa, type);</div><div class="line">        TextViewCompat.setAutoSizeTextTypeWithDefaults(tv_content_ru, type);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;ScrollView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">    &lt;LinearLayout</div><div class="line">        android:id=&quot;@+id/ll_content&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        android:orientation=&quot;vertical&quot;&gt;</div><div class="line"></div><div class="line">        &lt;Button</div><div class="line">            android:id=&quot;@+id/tv_content_cn&quot;</div><div class="line">            android:layout_width=&quot;match_parent&quot;</div><div class="line">            android:layout_height=&quot;60dp&quot;</div><div class="line">            android:layout_toRightOf=&quot;@id/tv_country&quot;</div><div class="line">            android:gravity=&quot;center_vertical&quot;</div><div class="line">            android:text=&quot;中文:我爱北京天安门&quot;</div><div class="line">            android:textSize=&quot;30sp&quot; /&gt;</div><div class="line"></div><div class="line">        &lt;Button</div><div class="line">            android:id=&quot;@+id/tv_content_cs&quot;</div><div class="line"></div><div class="line">            android:layout_width=&quot;match_parent&quot;</div><div class="line">            android:layout_height=&quot;60dp&quot;</div><div class="line">            android:layout_marginTop=&quot;10dp&quot;</div><div class="line">            android:layout_toRightOf=&quot;@id/tv_country&quot;</div><div class="line">            android:gravity=&quot;center_vertical&quot;</div><div class="line">            android:text=&quot;捷克：Miluji Peking Tiananmen Square&quot;</div><div class="line">            android:textSize=&quot;30sp&quot; /&gt;</div><div class="line"></div><div class="line">        &lt;Button</div><div class="line">            android:id=&quot;@+id/tv_content_fa&quot;</div><div class="line">            android:layout_width=&quot;match_parent&quot;</div><div class="line">            android:layout_height=&quot;60dp&quot;</div><div class="line">            android:layout_marginTop=&quot;10dp&quot;</div><div class="line">            android:layout_toRightOf=&quot;@id/tv_country&quot;</div><div class="line">            android:gravity=&quot;center_vertical&quot;</div><div class="line">            android:text=&quot;阿拉伯语：أنا أحب ساحة تيانانمن بكين&quot;</div><div class="line">            android:textSize=&quot;30sp&quot; /&gt;</div><div class="line"></div><div class="line">        &lt;Button</div><div class="line">            android:id=&quot;@+id/tv_content_us&quot;</div><div class="line">            android:layout_width=&quot;match_parent&quot;</div><div class="line">            android:layout_height=&quot;60dp&quot;</div><div class="line">            android:layout_marginTop=&quot;10dp&quot;</div><div class="line">            android:layout_toRightOf=&quot;@id/tv_country&quot;</div><div class="line">            android:gravity=&quot;center_vertical&quot;</div><div class="line">            android:text=&quot;英语：I love Beijing Tiananmen Square&quot;</div><div class="line">            android:textSize=&quot;30sp&quot; /&gt;</div><div class="line"></div><div class="line">        &lt;Button</div><div class="line">            android:id=&quot;@+id/tv_content_ru&quot;</div><div class="line">            android:layout_width=&quot;match_parent&quot;</div><div class="line">            android:layout_height=&quot;60dp&quot;</div><div class="line">            android:layout_marginTop=&quot;10dp&quot;</div><div class="line">            android:layout_toRightOf=&quot;@id/tv_country&quot;</div><div class="line">            android:gravity=&quot;center_vertical&quot;</div><div class="line">            android:text=&quot;俄罗斯：Я люблю Пекинскую площадь Тяньаньмэнь&quot;</div><div class="line">            android:textSize=&quot;30sp&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;/LinearLayout&gt;</div><div class="line">&lt;/ScrollView&gt;</div></pre></td></tr></table></figure>
+<h3 id="Button上的样式-一样通用"><a href="#Button上的样式-一样通用" class="headerlink" title="Button上的样式 一样通用"></a>Button上的样式 一样通用</h3><p><img src="http://upload-images.jianshu.io/upload_images/9083778-f9e0f32e1ff6a554.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>美滋滋。</p>
+<p>到这里只用到了一个方法就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public static void setAutoSizeTextTypeWithDefaults(</div><div class="line">           TextView textView,</div><div class="line">           int autoSizeTextType) 设置字体类型</div></pre></td></tr></table></figure>
+<h2 id="什么是颗粒度-预设值呢？"><a href="#什么是颗粒度-预设值呢？" class="headerlink" title="什么是颗粒度 预设值呢？"></a>什么是颗粒度 预设值呢？</h2><h3 id="颗粒度Granularity"><a href="#颗粒度Granularity" class="headerlink" title="颗粒度Granularity"></a>颗粒度Granularity</h3><p>就是 当你的字体不断变大，默认是 不断让字体增加1，如果你的颗粒度设置为10，那么每次 字体变大就增加10，<br>比如 0，10，20，30 这样子</p>
+<p>反过来<br>就是 你字体内容不断变多，显示不开的时候，没自动让字体变小，默认是不断让字体减1，如果你的颗粒度是10，那么每次字体减少10.<br>比如 30，20，10，0 这样子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public static void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">            TextView textView,</div><div class="line">            int autoSizeMinTextSize,</div><div class="line">            int autoSizeMaxTextSize,</div><div class="line">            int autoSizeStepGranularity, 设置颗粒度 字体变大变小的幅度，默认是1</div><div class="line">            int unit)</div></pre></td></tr></table></figure></p>
+<h3 id="如下动图"><a href="#如下动图" class="headerlink" title="如下动图"></a>如下动图</h3><p>这里我们设置<br>最大字体：400<br>最小字体：1<br>颗粒度：50<br>单位：px<br>xml字体设置：300px<br><img src="http://upload-images.jianshu.io/upload_images/9083778-d93de933cf29f82d?imageMogr2/auto-orient/strip" alt="这里写图片描述"></p>
+<p>我们发现。输入一个字符，字体大小是251，然后不断地减少50.<br>那么字体为什么是251呢？</p>
+<p>一会儿一起看源码。</p>
+<h3 id="预设值-PresetSizes"><a href="#预设值-PresetSizes" class="headerlink" title="预设值 PresetSizes"></a>预设值 PresetSizes</h3><p>预设值是一个数组，字体变大变小只会在这个数组的值中进行切换，选择一个最合适的</p>
+<p>使用方法方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TextViewCompat.setAutoSizeTextTypeUniformWithPresetSize</div></pre></td></tr></table></figure>
+<p>现在设置数组为<br>{50, 105,200,100, 219, 230, 251}  随机，也没有规律<br>然后不断的增加输入的内容<br>如下效果：<br><img src="http://upload-images.jianshu.io/upload_images/9083778-d51db6699a26ee8b?imageMogr2/auto-orient/strip" alt="这里写图片描述"></p>
+<p>可以发现。字体变化顺序是<br>251，230，200，105<br>为什么没有显示219呢。是因为219显示不开。就跳过去了。</p>
+<h2 id="看源码，如何实现"><a href="#看源码，如何实现" class="headerlink" title="看源码，如何实现"></a>看源码，如何实现</h2><p> 这里我们通过分析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration</div></pre></td></tr></table></figure>
+<p>方法就能了解它的原理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div></pre></td><td class="code"><pre><div class="line">这是V4包中我们调用的方法</div><div class="line"></div><div class="line"> public static void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">            TextView textView,</div><div class="line">            int autoSizeMinTextSize,</div><div class="line">            int autoSizeMaxTextSize,</div><div class="line">            int autoSizeStepGranularity,</div><div class="line">            int unit) throws IllegalArgumentException &#123;</div><div class="line">        IMPL.setAutoSizeTextTypeUniformWithConfiguration(textView, autoSizeMinTextSize,</div><div class="line">                autoSizeMaxTextSize, autoSizeStepGranularity, unit);</div><div class="line">    &#125;</div><div class="line">这是V4包中我们调用的方法</div><div class="line"></div><div class="line">在查看IMPL 方法</div><div class="line"></div><div class="line"></div><div class="line">    static final TextViewCompatBaseImpl IMPL;</div><div class="line"></div><div class="line">    static &#123;</div><div class="line">        if (Build.VERSION.SDK_INT &gt;= 26) &#123;</div><div class="line">            IMPL = new TextViewCompatApi26Impl();</div><div class="line">        &#125; else if (Build.VERSION.SDK_INT &gt;= 23) &#123;</div><div class="line">            IMPL = new TextViewCompatApi23Impl();</div><div class="line">        &#125; else if (Build.VERSION.SDK_INT &gt;= 18) &#123;</div><div class="line">            IMPL = new TextViewCompatApi18Impl();</div><div class="line">        &#125; else if (Build.VERSION.SDK_INT &gt;= 17) &#123;</div><div class="line">            IMPL = new TextViewCompatApi17Impl();</div><div class="line">        &#125; else if (Build.VERSION.SDK_INT &gt;= 16) &#123;</div><div class="line">            IMPL = new TextViewCompatApi16Impl();</div><div class="line">        &#125; else &#123;</div><div class="line">            IMPL = new TextViewCompatBaseImpl();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">往下看TextViewCompatApi26Impl 方法中</div><div class="line"></div><div class="line"></div><div class="line">    @RequiresApi(26)</div><div class="line">    static class TextViewCompatApi26Impl extends TextViewCompatApi23Impl &#123;</div><div class="line"></div><div class="line">    ...省略代码</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">                TextView textView,</div><div class="line">                int autoSizeMinTextSize,</div><div class="line">                int autoSizeMaxTextSize,</div><div class="line">                int autoSizeStepGranularity,</div><div class="line">                int unit) throws IllegalArgumentException &#123;</div><div class="line">            textView.setAutoSizeTextTypeUniformWithConfiguration(</div><div class="line">                    autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">		...省略代码</div><div class="line">&#125;</div><div class="line"></div><div class="line">进到setAutoSizeTextTypeUniformWithConfiguration 里面看看</div><div class="line"></div><div class="line">public void setAutoSizeTextTypeUniformWithConfiguration(int autoSizeMinTextSize,</div><div class="line">            int autoSizeMaxTextSize, int autoSizeStepGranularity, int unit) &#123;</div><div class="line">		//判断是否支持字体缩放</div><div class="line">        if (supportsAutoSizeText()) &#123;</div><div class="line">            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();</div><div class="line">            //获取单位是px的最小值</div><div class="line">            final float autoSizeMinTextSizeInPx = TypedValue.applyDimension(</div><div class="line">                    unit, autoSizeMinTextSize, displayMetrics);</div><div class="line">            //获取单位是px的最大值</div><div class="line">            final float autoSizeMaxTextSizeInPx = TypedValue.applyDimension(</div><div class="line">                    unit, autoSizeMaxTextSize, displayMetrics);</div><div class="line">            //获取单位是px的颗粒度</div><div class="line">            final float autoSizeStepGranularityInPx = TypedValue.applyDimension(</div><div class="line">                    unit, autoSizeStepGranularity, displayMetrics);</div><div class="line"></div><div class="line">            //把这三个值 赋值给 textview中相应的变量</div><div class="line">validateAndSetAutoSizeTextTypeUniformConfiguration(autoSizeMinTextSizeInPx,</div><div class="line">                    autoSizeMaxTextSizeInPx,</div><div class="line">                    autoSizeStepGranularityInPx);</div><div class="line">//重点来了，现在获取到了 最大值，最小值，颗粒度三个值。下面进行一些逻辑判断</div><div class="line">            if (setupAutoSizeText()) &#123;//进一步判断是否能字体缩放</div><div class="line">                autoSizeText();// 得到一个最合适的字体</div><div class="line">                invalidate();//刷新</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">先看看setupAutoSizeText 方法</div><div class="line"></div><div class="line">    private boolean setupAutoSizeText() &#123;</div><div class="line">	    //能否进行缩放操作</div><div class="line">        if (supportsAutoSizeText() &amp;&amp; mAutoSizeTextType == AUTO_SIZE_TEXT_TYPE_UNIFORM) &#123;</div><div class="line">            // Calculate the sizes set based on minimum size, maximum size and step size if we do</div><div class="line">            // not have a predefined set of sizes or if the current sizes array is empty.</div><div class="line">            //这段英文意思是</div><div class="line">            //如果我们没有定义一些数值，可以通过最大值，最小值，颗粒度，三个值来获取一些 sizes</div><div class="line">            //这个一些数值 就是上面说的第三个方法setAutoSizeTextTypeUniformWithPresetSize，设定的 预设值 。</div><div class="line">            //但是这个方法没有，只能计算一下</div><div class="line">            if (!mHasPresetAutoSizeValues || mAutoSizeTextSizesInPx.length == 0) &#123;</div><div class="line">				//size的数量</div><div class="line">                int autoSizeValuesLength = 1;</div><div class="line">                //获取不带小数的最小值</div><div class="line">                float currentSize = Math.round(mAutoSizeMinTextSizeInPx);</div><div class="line">                while (Math.round(currentSize + mAutoSizeStepGranularityInPx)</div><div class="line">                        &lt;= Math.round(mAutoSizeMaxTextSizeInPx)) &#123;</div><div class="line">                        //获取这个sizes 有多少个数</div><div class="line">                    autoSizeValuesLength++;</div><div class="line">                    currentSize += mAutoSizeStepGranularityInPx;</div><div class="line">                &#125;</div><div class="line">				//创先size数组</div><div class="line">                int[] autoSizeTextSizesInPx = new int[autoSizeValuesLength];</div><div class="line">                //先获取最小值</div><div class="line">                float sizeToAdd = mAutoSizeMinTextSizeInPx;</div><div class="line">                for (int i = 0; i &lt; autoSizeValuesLength; i++) &#123;</div><div class="line">                    autoSizeTextSizesInPx[i] = Math.round(sizeToAdd);</div><div class="line">                    //获取数组里面的一些列值</div><div class="line">                    sizeToAdd += mAutoSizeStepGranularityInPx;</div><div class="line">                &#125;</div><div class="line">                //把获取的数组 ，赋值给全局变量</div><div class="line">                //加入最小值是1，最大值是100，颗粒度是30</div><div class="line">                //现在获取到的数组是 &#123;1，31，61，91&#125; 四个值</div><div class="line">                mAutoSizeTextSizesInPx = cleanupAutoSizePresetSizes(autoSizeTextSizesInPx);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            mNeedsAutoSizeText = true;</div><div class="line">        &#125; else &#123;</div><div class="line">            mNeedsAutoSizeText = false;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return mNeedsAutoSizeText;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">下面在看autoSizeText() 方法</div><div class="line"></div><div class="line"></div><div class="line">    /**</div><div class="line">     * Automatically computes and sets the text size.</div><div class="line">     * 自动计算并设置文本大小。</div><div class="line">     */</div><div class="line">    private void autoSizeText() &#123;</div><div class="line">        if (!isAutoSizeEnabled()) &#123;</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (mNeedsAutoSizeText) &#123;</div><div class="line">            if (getMeasuredWidth() &lt;= 0 || getMeasuredHeight() &lt;= 0) &#123;</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">			//获取界面字体可显示的宽度</div><div class="line">            final int availableWidth = mHorizontallyScrolling</div><div class="line">                    ? VERY_WIDE</div><div class="line">                    : getMeasuredWidth() - getTotalPaddingLeft() - getTotalPaddingRight();</div><div class="line">			//获取界面字体可显示的高度</div><div class="line">            final int availableHeight = getMeasuredHeight() - getExtendedPaddingBottom()</div><div class="line">                    - getExtendedPaddingTop();</div><div class="line"></div><div class="line">            if (availableWidth &lt;= 0 || availableHeight &lt;= 0) &#123;</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            synchronized (TEMP_RECTF) &#123;</div><div class="line">                TEMP_RECTF.setEmpty();</div><div class="line">                //把宽高赋值给rectf</div><div class="line">                TEMP_RECTF.right = availableWidth;</div><div class="line">                TEMP_RECTF.bottom = availableHeight;</div><div class="line">                // 获取rectf 范围内 ，可以显示字体的最大值</div><div class="line">                final float optimalTextSize = findLargestTextSizeWhichFits(TEMP_RECTF);</div><div class="line"></div><div class="line">                if (optimalTextSize != getTextSize()) &#123;</div><div class="line">                //给textview 赋值</div><div class="line">                    setTextSizeInternal(TypedValue.COMPLEX_UNIT_PX, optimalTextSize,</div><div class="line">                            false /* shouldRequestLayout */);</div><div class="line">//</div><div class="line">                    makeNewLayout(availableWidth, 0 /* hintWidth */, UNKNOWN_BORING, UNKNOWN_BORING,</div><div class="line">                            mRight - mLeft - getCompoundPaddingLeft() - getCompoundPaddingRight(),</div><div class="line">                            false /* bringIntoView */);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        // Always try to auto-size if enabled. Functions that do not want to trigger auto-sizing</div><div class="line">        // after the next layout pass should set this to false.</div><div class="line">        mNeedsAutoSizeText = true;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">在看是如何获取范围内的最大值的呢</div><div class="line"></div><div class="line"></div><div class="line">    /**</div><div class="line">     * Performs a binary search to find the largest text size that will still fit within the size</div><div class="line">     * available to this view.</div><div class="line">     * 执行一个二进制搜索，以找到最大的文本大小，它仍然符合这个视图的大小。</div><div class="line">     */</div><div class="line">    private int findLargestTextSizeWhichFits(RectF availableSpace) &#123;</div><div class="line">        final int sizesCount = mAutoSizeTextSizesInPx.length;</div><div class="line">        if (sizesCount == 0) &#123;</div><div class="line">            throw new IllegalStateException(&quot;No available text sizes to choose from.&quot;);</div><div class="line">        &#125;</div><div class="line">		//下面是一个二分法的算法。</div><div class="line">        int bestSizeIndex = 0;</div><div class="line">        int lowIndex = bestSizeIndex + 1;//头</div><div class="line">        int highIndex = sizesCount - 1;//尾</div><div class="line">        int sizeToTryIndex;</div><div class="line">        while (lowIndex &lt;= highIndex) &#123;</div><div class="line">            sizeToTryIndex = (lowIndex + highIndex) / 2;//去中间值</div><div class="line">            //还记得上面的我们定义的一个数组么&#123;1，31，61，91&#125;</div><div class="line">            // 可以走一下下面的方法，感受一下二分法的魅力</div><div class="line">            if (suggestedSizeFitsInSpace(mAutoSizeTextSizesInPx[sizeToTryIndex], availableSpace)) &#123;</div><div class="line">                bestSizeIndex = lowIndex;</div><div class="line">                lowIndex = sizeToTryIndex + 1;</div><div class="line">            &#125; else &#123;</div><div class="line">                highIndex = sizeToTryIndex - 1;</div><div class="line">                bestSizeIndex = highIndex;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">		//这里返回一个最终值</div><div class="line">        return mAutoSizeTextSizesInPx[bestSizeIndex];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">在来看看这个方法suggestedSizeFitsInSpace 是如何用 rectf 来判断字体是否合适的</div><div class="line">    private boolean suggestedSizeFitsInSpace(int suggestedSizeInPx, RectF availableSpace) &#123;</div><div class="line"></div><div class="line">       省略代码...</div><div class="line"></div><div class="line">        mTempTextPaint.set(getPaint());//获取画笔</div><div class="line">        mTempTextPaint.setTextSize(suggestedSizeInPx);</div><div class="line"></div><div class="line">//获取一个StaticLayout 。来让一行显示不开的字体 换行</div><div class="line">        final StaticLayout.Builder layoutBuilder = StaticLayout.Builder.obtain(</div><div class="line">                text, 0, text.length(),  mTempTextPaint, Math.round(availableSpace.right));</div><div class="line"></div><div class="line">        layoutBuilder.setAlignment(getLayoutAlignment())</div><div class="line">                .setLineSpacing(getLineSpacingExtra(), getLineSpacingMultiplier())</div><div class="line">                .setIncludePad(getIncludeFontPadding())</div><div class="line">                .setBreakStrategy(getBreakStrategy())</div><div class="line">                .setHyphenationFrequency(getHyphenationFrequency())</div><div class="line">                .setJustificationMode(getJustificationMode())</div><div class="line">                .setMaxLines(mMaxMode == LINES ? mMaximum : Integer.MAX_VALUE)</div><div class="line">                .setTextDirection(getTextDirectionHeuristic());</div><div class="line"></div><div class="line">        final StaticLayout layout = layoutBuilder.build();</div><div class="line"></div><div class="line">		//换行后判断是否大于设定的maxLines</div><div class="line">        // Lines overflow.</div><div class="line">        if (maxLines != -1 &amp;&amp; layout.getLineCount() &gt; maxLines) &#123;</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        //换行后判断高度是否高于rectf的高度</div><div class="line">        // Height overflow.</div><div class="line">        if (layout.getHeight() &gt; availableSpace.bottom) &#123;</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return true;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>到这里就结束了。希望对你们有帮助。这里卖个关子。我上面的代码完全是TextView里面的。只适合在sdk是26的时候使用。下一篇介绍一下。V4包是如何 做到兼容低版本的</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>你是我最大的动力</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weichatpay.png" alt="SvenWang_ 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifupay.png" alt="SvenWang_ 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android8-0/" rel="tag"># android8.0</a>
+          
+            <a href="/tags/国际化适配/" rel="tag"># 国际化适配</a>
+          
+            <a href="/tags/NKD/" rel="tag"># NKD</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/21/2017-11-21support-v4_v7_Analyze/" rel="prev" title="源码解读，support v4、v7包是如何实现向下兼容的">
+                源码解读，support v4、v7包是如何实现向下兼容的 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">SvenWang_</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#起源"><span class="nav-number">1.</span> <span class="nav-text">起源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#适配前是这样的"><span class="nav-number">1.1.</span> <span class="nav-text">适配前是这样的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适配方法"><span class="nav-number">2.</span> <span class="nav-text">适配方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#适配后"><span class="nav-number">2.1.</span> <span class="nav-text">适配后</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">2.1.1.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Button上的样式-一样通用"><span class="nav-number">2.2.</span> <span class="nav-text">Button上的样式 一样通用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是颗粒度-预设值呢？"><span class="nav-number">3.</span> <span class="nav-text">什么是颗粒度 预设值呢？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#颗粒度Granularity"><span class="nav-number">3.1.</span> <span class="nav-text">颗粒度Granularity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如下动图"><span class="nav-number">3.2.</span> <span class="nav-text">如下动图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预设值-PresetSizes"><span class="nav-number">3.3.</span> <span class="nav-text">预设值 PresetSizes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#看源码，如何实现"><span class="nav-number">4.</span> <span class="nav-text">看源码，如何实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束"><span class="nav-number">5.</span> <span class="nav-text">结束</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SvenWang_</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'wanghao200906',
+            repo: 'wanghao200906.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd95fe34a0463ed755102b2451ae2b6b7f2293a2a',
+            
+                client_id: 'aa204a3bf83f603cd5ca'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UyJRl9DO8EikKEe0tMVxwBep-gzGzoHsz", "gW3lDREbUNVjAJaaPsSXWmx5");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
