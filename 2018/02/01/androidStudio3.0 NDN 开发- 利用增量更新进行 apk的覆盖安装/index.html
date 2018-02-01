@@ -79,30 +79,18 @@
 
 
 
-<meta name="description" content="学习目的 在android studio 3.0的 基础上同时生成多个so包，cmake的编写 开发安卓程序进行ndk开发  自动生成 增量包 patch 生成 合并的so 库进行patch文件的合并 解决 引用三方so库 方法报红 的问题  演示增量更新就是，app自动更新的时候不会把整个新版本的apk包下载下来 进行覆盖安装，而是将一个 新版本和老版本 进行比较 生成一个 patch包，把pa">
+<meta name="description" content="学习目的 在android studio 3.0的 基础上同时生成多个so包，cmake的编写 开发安卓程序进行ndk开发  自动生成 增量包 patch 生成 合并的so 库进行patch文件的合并 解决 引用三方so库 方法报红 的问题              &amp;lt;!-- - 这个叫oldtonew.apk 并不是这个文件夹下的 patch 和 app-old.apk合成的。因为用户使用">
 <meta name="keywords" content="NDK,增量更新">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AndroidStudio3.0 NDN 开发- 利用增量更新进行 apk的覆盖安装">
 <meta property="og:url" content="https://wanghao200906.github.io/2018/02/01/AndroidStudio3.0 NDN 开发- 利用增量更新进行 apk的覆盖安装/index.html">
 <meta property="og:site_name" content="SvenWang_">
-<meta property="og:description" content="学习目的 在android studio 3.0的 基础上同时生成多个so包，cmake的编写 开发安卓程序进行ndk开发  自动生成 增量包 patch 生成 合并的so 库进行patch文件的合并 解决 引用三方so库 方法报红 的问题  演示增量更新就是，app自动更新的时候不会把整个新版本的apk包下载下来 进行覆盖安装，而是将一个 新版本和老版本 进行比较 生成一个 patch包，把pa">
+<meta property="og:description" content="学习目的 在android studio 3.0的 基础上同时生成多个so包，cmake的编写 开发安卓程序进行ndk开发  自动生成 增量包 patch 生成 合并的so 库进行patch文件的合并 解决 引用三方so库 方法报红 的问题              &amp;lt;!-- - 这个叫oldtonew.apk 并不是这个文件夹下的 patch 和 app-old.apk合成的。因为用户使用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9ad024ea9?w=294&h=565&f=gif&s=350406">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9b1930ed1?w=294&h=565&f=gif&s=226196">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9b88657bd?w=2054&h=1064&f=png&s=263107">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9ac6a7d59?w=1640&h=1426&f=png&s=260773">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9ad15266c?w=998&h=1176&f=png&s=144580">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9c73679b8?w=2090&h=1222&f=png&s=175908">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9defd9c44?w=816&h=1240&f=png&s=121001">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9e5886095?w=1092&h=1060&f=png&s=122398">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9f605940a?w=994&h=918&f=png&s=118521">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9fcfd33ae?w=1144&h=998&f=png&s=159360">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9ea25e0fe?w=2382&h=1028&f=png&s=325591">
-<meta property="og:updated_time" content="2018-02-01T07:37:08.807Z">
+<meta property="og:updated_time" content="2018-02-01T07:45:06.343Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AndroidStudio3.0 NDN 开发- 利用增量更新进行 apk的覆盖安装">
-<meta name="twitter:description" content="学习目的 在android studio 3.0的 基础上同时生成多个so包，cmake的编写 开发安卓程序进行ndk开发  自动生成 增量包 patch 生成 合并的so 库进行patch文件的合并 解决 引用三方so库 方法报红 的问题  演示增量更新就是，app自动更新的时候不会把整个新版本的apk包下载下来 进行覆盖安装，而是将一个 新版本和老版本 进行比较 生成一个 patch包，把pa">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/2/1/161502f9ad024ea9?w=294&h=565&f=gif&s=350406">
+<meta name="twitter:description" content="学习目的 在android studio 3.0的 基础上同时生成多个so包，cmake的编写 开发安卓程序进行ndk开发  自动生成 增量包 patch 生成 合并的so 库进行patch文件的合并 解决 引用三方so库 方法报红 的问题              &amp;lt;!-- - 这个叫oldtonew.apk 并不是这个文件夹下的 patch 和 app-old.apk合成的。因为用户使用">
 
 
 
@@ -314,7 +302,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T10:56:05+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T15:56:05+08:00">
                 2018-02-01
               </time>
             
@@ -401,71 +389,709 @@
 <li>生成 合并的so 库进行patch文件的合并</li>
 <li>解决 引用三方so库 方法报红 的问题</li>
 </ul>
-<h2 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h2><p>增量更新就是，app自动更新的时候不会把整个新版本的apk包下载下来 进行覆盖安装，而是将一个 新版本和老版本 进行比较 生成一个 patch包，把patch包下载下来 和当前版本进行合并。然后在进行覆盖安装。</p>
-<p>为了演示 我们先创建一个项目。将相同包名 的两个不同版本的apk 放到assert 目录下。然后将这两个包拷贝到 指定文件夹下。在生成一个patch 包。</p>
-<p>下过如下<br><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9ad024ea9?w=294&amp;h=565&amp;f=gif&amp;s=350406" alt="这里写图片描述"></p>
-<p>就这样 我们把assets目录下的两个apk。拷贝到了文件夹下，并生成了一个patch包。</p>
-<p>这个patch包就是 app-new 和app-old 中的区别的部分。</p>
-<p>然后我们可以吧这个patch包放到服务器。这样用户在使用app的时候 只用下载patch包，然后和当前app进行合并。就可以覆盖安装了。</p>
-<p>下面我们在看一下 合并包的效果。我们还在该手机上。直接安装目录下的app-old.apk,然后点击合成按钮。会在线程里合成一个新的apk。然后进行覆盖安装。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9b1930ed1?w=294&amp;h=565&amp;f=gif&amp;s=226196" alt="这里写图片描述"></p>
-<p>我们看到了。我们的app 进行了覆盖安装。</p>
-<ul>
-<li>注意：<ul>
-<li>这个叫oldtonew.apk 并不是这个文件夹下的 patch 和 app-old.apk合成的。因为用户使用的时候并不一定手机里会有 老版本的apk安装包。<ul>
-<li>高于7.0 版本 的系统 覆盖安装会有一些坑。可以查看这篇文章。<br><a href="https://wanghao200906.github.io/2018/01/31/android%20%E4%BD%BF%E7%94%A8FileProvider%20%E5%85%BC%E5%AE%B9apk%20%E5%9C%A87.0%E7%89%88%E6%9C%AC%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/">https://wanghao200906.github.io/2018/01/31/android%20%E4%BD%BF%E7%94%A8FileProvider%20%E5%85%BC%E5%AE%B9apk%20%E5%9C%A87.0%E7%89%88%E6%9C%AC%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="包的拆分"><a href="#包的拆分" class="headerlink" title="包的拆分"></a>包的拆分</h2><h3 id="需要的工具"><a href="#需要的工具" class="headerlink" title="需要的工具"></a>需要的工具</h3><ul>
-<li><p>bzip2 : <a href="http://www.bzip.org/downloads.html" target="_blank" rel="external">http://www.bzip.org/downloads.html</a>  下载放一边<br><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9b88657bd?w=2054&amp;h=1064&amp;f=png&amp;s=263107" alt="这里写图片描述"></p>
-</li>
-<li><p>bsdiff :  <a href="https://github.com/mendsley/bsdiff" target="_blank" rel="external">https://github.com/mendsley/bsdiff</a>  clone 一波<br><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9ac6a7d59?w=1640&amp;h=1426&amp;f=png&amp;s=260773" alt="这里写图片描述"><br>有用的就两个文件 。ok了。下载完这些 准备完事儿了。开始写代码了。</p>
-</li>
-</ul>
-<h3 id="如何生成多个so文件（先了解一下）"><a href="#如何生成多个so文件（先了解一下）" class="headerlink" title="如何生成多个so文件（先了解一下）"></a>如何生成多个so文件（先了解一下）</h3><p>如果androidstudio 3.0 上还不会使用ndk 开发 请看这篇文章<br><a href="https://wanghao200906.github.io/2018/01/25/AndroidStudio3.0%20NDK%E5%BC%80%E5%8F%91-%20%E5%A6%82%E4%BD%95%E5%9C%A8%E5%B7%B2%E6%9C%89%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%9B%E8%A1%8CNDK%E5%BC%80%E5%8F%91/">https://wanghao200906.github.io/2018/01/25/AndroidStudio3.0%20NDK%E5%BC%80%E5%8F%91-%20%E5%A6%82%E4%BD%95%E5%9C%A8%E5%B7%B2%E6%9C%89%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%9B%E8%A1%8CNDK%E5%BC%80%E5%8F%91/</a><br>看完这个基本了解个大概了。androidstudio 已经不用 编写 .mk 文件了。</p>
-<p>我们想创建一个项目。生成一个 diff.so 和patch.so 两个包。怎么做呢<br><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9ad15266c?w=998&amp;h=1176&amp;f=png&amp;s=144580" alt="这里写图片描述"></p>
-<p>这样一目了然了。再看看 这三个CmakeList.txt 怎么写的呢</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line">diff的 CmakeList.txt</div><div class="line"></div><div class="line">cmake_minimum_required(VERSION 3.4.1)</div><div class="line"></div><div class="line"></div><div class="line">add_library( # Specifies the name of the library.</div><div class="line"># 这里是你so的名字。刚才在 MainActivity里面要引用的</div><div class="line">             diff</div><div class="line"></div><div class="line">             # Sets the library as a shared library.</div><div class="line">             SHARED</div><div class="line"></div><div class="line">             # Provides a relative path to your source file(s).</div><div class="line">              #这里是刚才 创建的c++ 代码的名字</div><div class="line">             Diff.c</div><div class="line">            )</div><div class="line"></div><div class="line">find_library( # Sets the name of the path variable.</div><div class="line">              log-lib</div><div class="line"></div><div class="line">              # Specifies the name of the NDK library that</div><div class="line">              # you want CMake to locate.</div><div class="line">              log )</div><div class="line"></div><div class="line">target_link_libraries( # Specifies the target library.</div><div class="line">                       diff</div><div class="line">                       # Links the target library to the log library</div><div class="line">                       # included in the NDK.</div><div class="line">                       $&#123;log-lib&#125; )</div><div class="line"></div><div class="line">patch 的 CmakeList.txt</div><div class="line"></div><div class="line">cmake_minimum_required(VERSION 3.4.1)</div><div class="line"></div><div class="line"># include_directories(</div><div class="line">#             &quot;$&#123;PROJECT_SOURCE_DIR&#125;/..&quot;)</div><div class="line">add_library( # Specifies the name of the library.</div><div class="line"># 这里是你so的名字。刚才在 MainActivity里面要引用的</div><div class="line">             patch</div><div class="line"></div><div class="line">             # Sets the library as a shared library.</div><div class="line">             SHARED</div><div class="line"></div><div class="line">             # Provides a relative path to your source file(s).</div><div class="line">              #这里是刚才 创建的c++ 代码的名字</div><div class="line">             PatchUtils.c</div><div class="line">            )</div><div class="line"></div><div class="line">find_library( # Sets the name of the path variable.</div><div class="line">              log-lib</div><div class="line"></div><div class="line">              # Specifies the name of the NDK library that</div><div class="line">              # you want CMake to locate.</div><div class="line">              log )</div><div class="line"></div><div class="line">target_link_libraries( # Specifies the target library.</div><div class="line">                        patch</div><div class="line">                       # Links the target library to the log library</div><div class="line">                       # included in the NDK.</div><div class="line">                       $&#123;log-lib&#125; )</div><div class="line"></div><div class="line">被gradle 引用的 CmakeList.txt</div><div class="line"></div><div class="line">cmake_minimum_required(VERSION 3.4.1)</div><div class="line"></div><div class="line">#添加子目录,将会调用子目录中的CMakeLists.txt</div><div class="line">ADD_SUBDIRECTORY(diff)</div><div class="line">ADD_SUBDIRECTORY(patch)</div></pre></td></tr></table></figure>
-<p>在看一下 我们的gradle文件<br><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9c73679b8?w=2090&amp;h=1222&amp;f=png&amp;s=175908" alt="这里写图片描述"><br>请注意一下路径。<br>如果我们的代码写的没有问题。直接 build -&gt;make project<br><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9defd9c44?w=816&amp;h=1240&amp;f=png&amp;s=121001" alt="这里写图片描述"></p>
-<p>可以看到 我们生成了  diff.so 和 patch.so 文件夹。<br>现在如果我们在创建什么项目 直接使用这两个so文件。就可以进行  拆分 和合并了。</p>
-<h3 id="拆分，合并代码编写。"><a href="#拆分，合并代码编写。" class="headerlink" title="拆分，合并代码编写。"></a>拆分，合并代码编写。</h3><p>拆分 和 合并 要使用 刚才 下载的 bsdiff 文件。bsdiff 文件又依赖于 bzip2 的库</p>
-<p>因为拆分 与 合并 基本类似。就展示 拆分的代码了。我会把所有代码放到github上去。因为这两个库在使用的时候有特别多的坑。</p>
-<p>先看一下目录结构吧<br><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9e5886095?w=1092&amp;h=1060&amp;f=png&amp;s=122398" alt="这里写图片描述"><br>把刚才下载的bzip2 包放到 cpp目录下。<strong>注意</strong> 不是全部都放过来。</p>
-<p>在diff目录下新建一些 拆分需要的代码。</p>
-<p><strong>注意</strong><br>        如果你不知道 sven_com_apkpatchserver_DiffUtils.h<br>        这个文件是如何生成的，你需要先看这篇文章，不然下面的看不懂了<br><a href="https://wanghao200906.github.io/2018/01/25/AndroidStudio3.0%20NDK%E5%BC%80%E5%8F%91-%20%E5%A6%82%E4%BD%95%E5%9C%A8%E5%B7%B2%E6%9C%89%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%9B%E8%A1%8CNDK%E5%BC%80%E5%8F%91/">https://wanghao200906.github.io/2018/01/25/AndroidStudio3.0%20NDK%E5%BC%80%E5%8F%91-%20%E5%A6%82%E4%BD%95%E5%9C%A8%E5%B7%B2%E6%9C%89%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%9B%E8%A1%8CNDK%E5%BC%80%E5%8F%91/</a></p>
-<p>新建一个 DiffUtils 的工具类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public class DiffUtils &#123;</div><div class="line"></div><div class="line">    static &#123;//导入libhello.so 文件。 这里面只写hello就可以</div><div class="line">        System.loadLibrary(&quot;diff&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * native方法 比较路径为oldPath的apk与newPath的apk之间差异，并生成patch包，存储于patchPath</div><div class="line">     * &lt;p&gt;</div><div class="line">     * 返回：0，说明操作成功</div><div class="line">     *</div><div class="line">     * @param oldApkPath 示例:/sdcard/old.apk</div><div class="line">     * @param newApkPath 示例:/sdcard/new.apk</div><div class="line">     * @param patchPath  示例:/sdcard/xx.patch</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static native String genDiff(String oldApkPath, String newApkPath, String patchPath);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>生成 他的 native 头文件<br>sven_com_apkpatchserver_DiffUtils.h</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/* DO NOT EDIT THIS FILE - it is machine generated */</div><div class="line">#include &lt;jni.h&gt;</div><div class="line">/* Header for class sven_com_apkpatchserver_DiffUtils */</div><div class="line"></div><div class="line">#ifndef _Included_sven_com_apkpatchserver_DiffUtils</div><div class="line">#define _Included_sven_com_apkpatchserver_DiffUtils</div><div class="line">#ifdef __cplusplus</div><div class="line">extern &quot;C&quot; &#123;</div><div class="line">#endif</div><div class="line">/*</div><div class="line"> * Class:     sven_com_apkpatchserver_DiffUtils</div><div class="line"> * Method:    genDiff</div><div class="line"> * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I</div><div class="line"> */</div><div class="line">JNIEXPORT jstring JNICALL Java_sven_com_apkpatchserver_DiffUtils_genDiff</div><div class="line">  (JNIEnv *, jclass, jstring, jstring, jstring);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#ifdef __cplusplus</div><div class="line">&#125;</div><div class="line">#endif</div><div class="line">#endif</div></pre></td></tr></table></figure>
-<p>还记得 上文提到的github 中 有一个 bsdiff.c 的文件么 全部拷贝 放到diff文件夹下，这里更名为 diff.c 在这个代码的基础上进行编写<br>代码如下，特别多。请小心。下面全是c 语言的代码了。如果看不懂可以先从jni学起。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div><div class="line">334</div><div class="line">335</div><div class="line">336</div><div class="line">337</div><div class="line">338</div><div class="line">339</div><div class="line">340</div><div class="line">341</div><div class="line">342</div><div class="line">343</div><div class="line">344</div><div class="line">345</div><div class="line">346</div><div class="line">347</div><div class="line">348</div><div class="line">349</div><div class="line">350</div><div class="line">351</div><div class="line">352</div><div class="line">353</div><div class="line">354</div><div class="line">355</div><div class="line">356</div><div class="line">357</div><div class="line">358</div><div class="line">359</div><div class="line">360</div><div class="line">361</div><div class="line">362</div><div class="line">363</div><div class="line">364</div><div class="line">365</div><div class="line">366</div><div class="line">367</div><div class="line">368</div><div class="line">369</div><div class="line">370</div><div class="line">371</div><div class="line">372</div><div class="line">373</div><div class="line">374</div><div class="line">375</div><div class="line">376</div><div class="line">377</div><div class="line">378</div><div class="line">379</div><div class="line">380</div><div class="line">381</div><div class="line">382</div><div class="line">383</div><div class="line">384</div><div class="line">385</div><div class="line">386</div><div class="line">387</div><div class="line">388</div><div class="line">389</div><div class="line">390</div><div class="line">391</div><div class="line">392</div><div class="line">393</div><div class="line">394</div><div class="line">395</div><div class="line">396</div><div class="line">397</div><div class="line">398</div><div class="line">399</div><div class="line">400</div><div class="line">401</div><div class="line">402</div><div class="line">403</div><div class="line">404</div><div class="line">405</div><div class="line">406</div><div class="line">407</div><div class="line">408</div><div class="line">409</div><div class="line">410</div><div class="line">411</div><div class="line">412</div><div class="line">413</div><div class="line">414</div><div class="line">415</div><div class="line">416</div><div class="line">417</div><div class="line">418</div><div class="line">419</div><div class="line">420</div><div class="line">421</div><div class="line">422</div><div class="line">423</div><div class="line">424</div><div class="line">425</div><div class="line">426</div><div class="line">427</div><div class="line">428</div><div class="line">429</div><div class="line">430</div><div class="line">431</div><div class="line">432</div><div class="line">433</div><div class="line">434</div><div class="line">435</div><div class="line">436</div><div class="line">437</div><div class="line">438</div><div class="line">439</div><div class="line">440</div><div class="line">441</div><div class="line">442</div><div class="line">443</div><div class="line">444</div><div class="line">445</div><div class="line">446</div><div class="line">447</div><div class="line">448</div><div class="line">449</div><div class="line">450</div><div class="line">451</div><div class="line">452</div><div class="line">453</div><div class="line">454</div><div class="line">455</div><div class="line">456</div><div class="line">457</div><div class="line">458</div><div class="line">459</div><div class="line">460</div><div class="line">461</div><div class="line">462</div><div class="line">463</div><div class="line">464</div><div class="line">465</div><div class="line">466</div><div class="line">467</div><div class="line">468</div><div class="line">469</div><div class="line">470</div><div class="line">471</div><div class="line">472</div><div class="line">473</div><div class="line">474</div><div class="line">475</div><div class="line">476</div><div class="line">477</div><div class="line">478</div><div class="line">479</div><div class="line">480</div><div class="line">481</div><div class="line">482</div><div class="line">483</div><div class="line">484</div><div class="line">485</div><div class="line">486</div><div class="line">487</div></pre></td><td class="code"><pre><div class="line">//</div><div class="line">// Created by mypro on 2018/1/28.</div><div class="line">//</div><div class="line">/*-</div><div class="line"> * Copyright 2003-2005 Colin Percival</div><div class="line"> * All rights reserved</div><div class="line"> *</div><div class="line"> * Redistribution and use in source and binary forms, with or without</div><div class="line"> * modification, are permitted providing that the following conditions</div><div class="line"> * are met:</div><div class="line"> * 1. Redistributions of source code must retain the above copyright</div><div class="line"> *    notice, this list of conditions and the following disclaimer.</div><div class="line"> * 2. Redistributions in binary form must reproduce the above copyright</div><div class="line"> *    notice, this list of conditions and the following disclaimer in the</div><div class="line"> *    documentation and/or other materials provided with the distribution.</div><div class="line"> *</div><div class="line"> * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS&apos;&apos; AND ANY EXPRESS OR</div><div class="line"> * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</div><div class="line"> * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</div><div class="line"> * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY</div><div class="line"> * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL</div><div class="line"> * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS</div><div class="line"> * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)</div><div class="line"> * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,</div><div class="line"> * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING</div><div class="line"> * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</div><div class="line"> * POSSIBILITY OF SUCH DAMAGE.</div><div class="line"> */</div><div class="line"></div><div class="line">#include &quot;sven_com_apkpatchserver_DiffUtils.h&quot;</div><div class="line"></div><div class="line"></div><div class="line">#include &quot;../bzip2/bzlib.c&quot;</div><div class="line">#include &quot;../bzip2/crctable.c&quot;</div><div class="line">#include &quot;../bzip2/compress.c&quot;</div><div class="line">#include &quot;../bzip2/decompress.c&quot;</div><div class="line">#include &quot;../bzip2/randtable.c&quot;</div><div class="line">#include &quot;../bzip2/blocksort.c&quot;</div><div class="line">#include &quot;../bzip2/huffman.c&quot;</div><div class="line"></div><div class="line">#include &lt;sys/types.h&gt;</div><div class="line">#include &lt;err.h&gt;</div><div class="line">#include &lt;fcntl.h&gt;</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include &lt;string.h&gt;</div><div class="line">#include &lt;unistd.h&gt;</div><div class="line"></div><div class="line"></div><div class="line">#define MIN(x, y) (((x)&lt;(y)) ? (x) : (y))</div><div class="line"></div><div class="line">static void split(off_t *I, off_t *V, off_t start, off_t len, off_t h) &#123;</div><div class="line">    off_t i, j, k, x, tmp, jj, kk;</div><div class="line"></div><div class="line">    if (len &lt; 16) &#123;</div><div class="line">        for (k = start; k &lt; start + len; k += j) &#123;</div><div class="line">            j = 1;</div><div class="line">            x = V[I[k] + h];</div><div class="line">            for (i = 1; k + i &lt; start + len; i++) &#123;</div><div class="line">                if (V[I[k + i] + h] &lt; x) &#123;</div><div class="line">                    x = V[I[k + i] + h];</div><div class="line">                    j = 0;</div><div class="line">                &#125;;</div><div class="line">                if (V[I[k + i] + h] == x) &#123;</div><div class="line">                    tmp = I[k + j];</div><div class="line">                    I[k + j] = I[k + i];</div><div class="line">                    I[k + i] = tmp;</div><div class="line">                    j++;</div><div class="line">                &#125;;</div><div class="line">            &#125;;</div><div class="line">            for (i = 0; i &lt; j; i++) V[I[k + i]] = k + j - 1;</div><div class="line">            if (j == 1) I[k] = -1;</div><div class="line">        &#125;;</div><div class="line">        return;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    x = V[I[start + len / 2] + h];</div><div class="line">    jj = 0;</div><div class="line">    kk = 0;</div><div class="line">    for (i = start; i &lt; start + len; i++) &#123;</div><div class="line">        if (V[I[i] + h] &lt; x) jj++;</div><div class="line">        if (V[I[i] + h] == x) kk++;</div><div class="line">    &#125;;</div><div class="line">    jj += start;</div><div class="line">    kk += jj;</div><div class="line"></div><div class="line">    i = start;</div><div class="line">    j = 0;</div><div class="line">    k = 0;</div><div class="line">    while (i &lt; jj) &#123;</div><div class="line">        if (V[I[i] + h] &lt; x) &#123;</div><div class="line">            i++;</div><div class="line">        &#125; else if (V[I[i] + h] == x) &#123;</div><div class="line">            tmp = I[i];</div><div class="line">            I[i] = I[jj + j];</div><div class="line">            I[jj + j] = tmp;</div><div class="line">            j++;</div><div class="line">        &#125; else &#123;</div><div class="line">            tmp = I[i];</div><div class="line">            I[i] = I[kk + k];</div><div class="line">            I[kk + k] = tmp;</div><div class="line">            k++;</div><div class="line">        &#125;;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    while (jj + j &lt; kk) &#123;</div><div class="line">        if (V[I[jj + j] + h] == x) &#123;</div><div class="line">            j++;</div><div class="line">        &#125; else &#123;</div><div class="line">            tmp = I[jj + j];</div><div class="line">            I[jj + j] = I[kk + k];</div><div class="line">            I[kk + k] = tmp;</div><div class="line">            k++;</div><div class="line">        &#125;;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    if (jj &gt; start) split(I, V, start, jj - start, h);</div><div class="line"></div><div class="line">    for (i = 0; i &lt; kk - jj; i++) V[I[jj + i]] = kk - 1;</div><div class="line">    if (jj == kk - 1) I[jj] = -1;</div><div class="line"></div><div class="line">    if (start + len &gt; kk) split(I, V, kk, start + len - kk, h);</div><div class="line">&#125;</div><div class="line"></div><div class="line">static void qsufsort(off_t *I, off_t *V, u_char *old, off_t oldsize) &#123;</div><div class="line">    off_t buckets[256];</div><div class="line">    off_t i, h, len;</div><div class="line"></div><div class="line">    for (i = 0; i &lt; 256; i++) buckets[i] = 0;</div><div class="line">    for (i = 0; i &lt; oldsize; i++) buckets[old[i]]++;</div><div class="line">    for (i = 1; i &lt; 256; i++) buckets[i] += buckets[i - 1];</div><div class="line">    for (i = 255; i &gt; 0; i--) buckets[i] = buckets[i - 1];</div><div class="line">    buckets[0] = 0;</div><div class="line"></div><div class="line">    for (i = 0; i &lt; oldsize; i++) I[++buckets[old[i]]] = i;</div><div class="line">    I[0] = oldsize;</div><div class="line">    for (i = 0; i &lt; oldsize; i++) V[i] = buckets[old[i]];</div><div class="line">    V[oldsize] = 0;</div><div class="line">    for (i = 1; i &lt; 256; i++) if (buckets[i] == buckets[i - 1] + 1) I[buckets[i]] = -1;</div><div class="line">    I[0] = -1;</div><div class="line"></div><div class="line">    for (h = 1; I[0] != -(oldsize + 1); h += h) &#123;</div><div class="line">        len = 0;</div><div class="line">        for (i = 0; i &lt; oldsize + 1;) &#123;</div><div class="line">            if (I[i] &lt; 0) &#123;</div><div class="line">                len -= I[i];</div><div class="line">                i -= I[i];</div><div class="line">            &#125; else &#123;</div><div class="line">                if (len) I[i - len] = -len;</div><div class="line">                len = V[I[i]] + 1 - i;</div><div class="line">                split(I, V, i, len, h);</div><div class="line">                i += len;</div><div class="line">                len = 0;</div><div class="line">            &#125;;</div><div class="line">        &#125;;</div><div class="line">        if (len) I[i - len] = -len;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    for (i = 0; i &lt; oldsize + 1; i++) I[V[i]] = i;</div><div class="line">&#125;</div><div class="line"></div><div class="line">static off_t matchlen(u_char *old, off_t oldsize, u_char *new, off_t newsize) &#123;</div><div class="line">    off_t i;</div><div class="line"></div><div class="line">    for (i = 0; (i &lt; oldsize) &amp;&amp; (i &lt; newsize); i++)</div><div class="line">        if (old[i] != new[i]) break;</div><div class="line"></div><div class="line">    return i;</div><div class="line">&#125;</div><div class="line"></div><div class="line">static off_t search(off_t *I, u_char *old, off_t oldsize,</div><div class="line">                    u_char *new, off_t newsize, off_t st, off_t en, off_t *pos) &#123;</div><div class="line">    off_t x, y;</div><div class="line"></div><div class="line">    if (en - st &lt; 2) &#123;</div><div class="line">        x = matchlen(old + I[st], oldsize - I[st], new, newsize);</div><div class="line">        y = matchlen(old + I[en], oldsize - I[en], new, newsize);</div><div class="line"></div><div class="line">        if (x &gt; y) &#123;</div><div class="line">            *pos = I[st];</div><div class="line">            return x;</div><div class="line">        &#125; else &#123;</div><div class="line">            *pos = I[en];</div><div class="line">            return y;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    x = st + (en - st) / 2;</div><div class="line">    if (memcmp(old + I[x], new, MIN(oldsize - I[x], newsize)) &lt; 0) &#123;</div><div class="line">        return search(I, old, oldsize, new, newsize, x, en, pos);</div><div class="line">    &#125; else &#123;</div><div class="line">        return search(I, old, oldsize, new, newsize, st, x, pos);</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">static void offtout(off_t x, u_char *buf) &#123;</div><div class="line">    off_t y;</div><div class="line"></div><div class="line">    if (x &lt; 0) y = -x; else y = x;</div><div class="line"></div><div class="line">    buf[0] = y % 256;</div><div class="line">    y -= buf[0];</div><div class="line">    y = y / 256;</div><div class="line">    buf[1] = y % 256;</div><div class="line">    y -= buf[1];</div><div class="line">    y = y / 256;</div><div class="line">    buf[2] = y % 256;</div><div class="line">    y -= buf[2];</div><div class="line">    y = y / 256;</div><div class="line">    buf[3] = y % 256;</div><div class="line">    y -= buf[3];</div><div class="line">    y = y / 256;</div><div class="line">    buf[4] = y % 256;</div><div class="line">    y -= buf[4];</div><div class="line">    y = y / 256;</div><div class="line">    buf[5] = y % 256;</div><div class="line">    y -= buf[5];</div><div class="line">    y = y / 256;</div><div class="line">    buf[6] = y % 256;</div><div class="line">    y -= buf[6];</div><div class="line">    y = y / 256;</div><div class="line">    buf[7] = y % 256;</div><div class="line"></div><div class="line">    if (x &lt; 0) buf[7] |= 0x80;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int bsdiff_main(int argc, char *argv[]) &#123;</div><div class="line">    int fd;</div><div class="line">    u_char *old, *new;</div><div class="line">    off_t oldsize, newsize;</div><div class="line">    off_t *I, *V;</div><div class="line">    off_t scan, pos, len;</div><div class="line">    off_t lastscan, lastpos, lastoffset;</div><div class="line">    off_t oldscore, scsc;</div><div class="line">    off_t s, Sf, lenf, Sb, lenb;</div><div class="line">    off_t overlap, Ss, lens;</div><div class="line">    off_t i;</div><div class="line">    off_t dblen, eblen;</div><div class="line">    u_char *db, *eb;</div><div class="line">    u_char buf[8];</div><div class="line">    u_char header[32];</div><div class="line">    FILE *pf;</div><div class="line">    BZFILE *pfbz2;</div><div class="line">    int bz2err;</div><div class="line"></div><div class="line">    if (argc != 4) errx(1, &quot;usage: %s oldfile newfile patchfile\n&quot;, argv[0]);</div><div class="line"></div><div class="line">    /* Allocate oldsize+1 bytes instead of oldsize bytes to ensure</div><div class="line">        that we never try to malloc(0) and get a NULL pointer */</div><div class="line">    if (((fd = open(argv[1], O_RDONLY, 0)) &lt; 0) ||</div><div class="line">        ((oldsize = lseek(fd, 0, SEEK_END)) == -1) ||</div><div class="line">        ((old = malloc(oldsize + 1)) == NULL) ||</div><div class="line">        (lseek(fd, 0, SEEK_SET) != 0) ||</div><div class="line">        (read(fd, old, oldsize) != oldsize) ||</div><div class="line">        (close(fd) == -1))</div><div class="line">        err(1, &quot;%s&quot;, argv[1]);</div><div class="line"></div><div class="line">    if (((I = malloc((oldsize + 1) * sizeof(off_t))) == NULL) ||</div><div class="line">        ((V = malloc((oldsize + 1) * sizeof(off_t))) == NULL))</div><div class="line">        err(1, NULL);</div><div class="line"></div><div class="line">    qsufsort(I, V, old, oldsize);</div><div class="line"></div><div class="line">    free(V);</div><div class="line"></div><div class="line">    /* Allocate newsize+1 bytes instead of newsize bytes to ensure</div><div class="line">        that we never try to malloc(0) and get a NULL pointer */</div><div class="line">    if (((fd = open(argv[2], O_RDONLY, 0)) &lt; 0) ||</div><div class="line">        ((newsize = lseek(fd, 0, SEEK_END)) == -1) ||</div><div class="line">        ((new = malloc(newsize + 1)) == NULL) ||</div><div class="line">        (lseek(fd, 0, SEEK_SET) != 0) ||</div><div class="line">        (read(fd, new, newsize) != newsize) ||</div><div class="line">        (close(fd) == -1))</div><div class="line">        err(1, &quot;%s&quot;, argv[2]);</div><div class="line"></div><div class="line">    if (((db = malloc(newsize + 1)) == NULL) ||</div><div class="line">        ((eb = malloc(newsize + 1)) == NULL))</div><div class="line">        err(1, NULL);</div><div class="line">    dblen = 0;</div><div class="line">    eblen = 0;</div><div class="line"></div><div class="line">    /* Create the patch file */</div><div class="line">    if ((pf = fopen(argv[3], &quot;w&quot;)) == NULL)</div><div class="line">        err(1, &quot;%s&quot;, argv[3]);</div><div class="line"></div><div class="line">    /* Header is</div><div class="line">        0	8	 &quot;BSDIFF40&quot;</div><div class="line">        8	8	length of bzip2ed ctrl block</div><div class="line">        16	8	length of bzip2ed diff block</div><div class="line">        24	8	length of new file */</div><div class="line">    /* File is</div><div class="line">        0	32	Header</div><div class="line">        32	??	Bzip2ed ctrl block</div><div class="line">        ??	??	Bzip2ed diff block</div><div class="line">        ??	??	Bzip2ed extra block */</div><div class="line">    memcpy(header, &quot;BSDIFF40&quot;, 8);</div><div class="line">    offtout(0, header + 8);</div><div class="line">    offtout(0, header + 16);</div><div class="line">    offtout(newsize, header + 24);</div><div class="line">    if (fwrite(header, 32, 1, pf) != 1)</div><div class="line">        err(1, &quot;fwrite(%s)&quot;, argv[3]);</div><div class="line"></div><div class="line">    /* Compute the differences, writing ctrl as we go */</div><div class="line">    if ((pfbz2 = BZ2_bzWriteOpen(&amp;bz2err, pf, 9, 0, 0)) == NULL)</div><div class="line">        errx(1, &quot;BZ2_bzWriteOpen, bz2err = %d&quot;, bz2err);</div><div class="line">    scan = 0;</div><div class="line">    len = 0;</div><div class="line">    lastscan = 0;</div><div class="line">    lastpos = 0;</div><div class="line">    lastoffset = 0;</div><div class="line">    while (scan &lt; newsize) &#123;</div><div class="line">        oldscore = 0;</div><div class="line"></div><div class="line">        for (scsc = scan += len; scan &lt; newsize; scan++) &#123;</div><div class="line">            len = search(I, old, oldsize, new + scan, newsize - scan,</div><div class="line">                         0, oldsize, &amp;pos);</div><div class="line"></div><div class="line">            for (; scsc &lt; scan + len; scsc++)</div><div class="line">                if ((scsc + lastoffset &lt; oldsize) &amp;&amp;</div><div class="line">                    (old[scsc + lastoffset] == new[scsc]))</div><div class="line">                    oldscore++;</div><div class="line"></div><div class="line">            if (((len == oldscore) &amp;&amp; (len != 0)) ||</div><div class="line">                (len &gt; oldscore + 8))</div><div class="line">                break;</div><div class="line"></div><div class="line">            if ((scan + lastoffset &lt; oldsize) &amp;&amp;</div><div class="line">                (old[scan + lastoffset] == new[scan]))</div><div class="line">                oldscore--;</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        if ((len != oldscore) || (scan == newsize)) &#123;</div><div class="line">            s = 0;</div><div class="line">            Sf = 0;</div><div class="line">            lenf = 0;</div><div class="line">            for (i = 0; (lastscan + i &lt; scan) &amp;&amp; (lastpos + i &lt; oldsize);) &#123;</div><div class="line">                if (old[lastpos + i] == new[lastscan + i]) s++;</div><div class="line">                i++;</div><div class="line">                if (s * 2 - i &gt; Sf * 2 - lenf) &#123;</div><div class="line">                    Sf = s;</div><div class="line">                    lenf = i;</div><div class="line">                &#125;;</div><div class="line">            &#125;;</div><div class="line"></div><div class="line">            lenb = 0;</div><div class="line">            if (scan &lt; newsize) &#123;</div><div class="line">                s = 0;</div><div class="line">                Sb = 0;</div><div class="line">                for (i = 1; (scan &gt;= lastscan + i) &amp;&amp; (pos &gt;= i); i++) &#123;</div><div class="line">                    if (old[pos - i] == new[scan - i]) s++;</div><div class="line">                    if (s * 2 - i &gt; Sb * 2 - lenb) &#123;</div><div class="line">                        Sb = s;</div><div class="line">                        lenb = i;</div><div class="line">                    &#125;;</div><div class="line">                &#125;;</div><div class="line">            &#125;;</div><div class="line"></div><div class="line">            if (lastscan + lenf &gt; scan - lenb) &#123;</div><div class="line">                overlap = (lastscan + lenf) - (scan - lenb);</div><div class="line">                s = 0;</div><div class="line">                Ss = 0;</div><div class="line">                lens = 0;</div><div class="line">                for (i = 0; i &lt; overlap; i++) &#123;</div><div class="line">                    if (new[lastscan + lenf - overlap + i] ==</div><div class="line">                        old[lastpos + lenf - overlap + i])</div><div class="line">                        s++;</div><div class="line">                    if (new[scan - lenb + i] ==</div><div class="line">                        old[pos - lenb + i])</div><div class="line">                        s--;</div><div class="line">                    if (s &gt; Ss) &#123;</div><div class="line">                        Ss = s;</div><div class="line">                        lens = i + 1;</div><div class="line">                    &#125;;</div><div class="line">                &#125;;</div><div class="line"></div><div class="line">                lenf += lens - overlap;</div><div class="line">                lenb -= lens;</div><div class="line">            &#125;;</div><div class="line"></div><div class="line">            for (i = 0; i &lt; lenf; i++)</div><div class="line">                db[dblen + i] = new[lastscan + i] - old[lastpos + i];</div><div class="line">            for (i = 0; i &lt; (scan - lenb) - (lastscan + lenf); i++)</div><div class="line">                eb[eblen + i] = new[lastscan + lenf + i];</div><div class="line"></div><div class="line">            dblen += lenf;</div><div class="line">            eblen += (scan - lenb) - (lastscan + lenf);</div><div class="line"></div><div class="line">            offtout(lenf, buf);</div><div class="line">            BZ2_bzWrite(&amp;bz2err, pfbz2, buf, 8);</div><div class="line">            if (bz2err != BZ_OK)</div><div class="line">                errx(1, &quot;BZ2_bzWrite, bz2err = %d&quot;, bz2err);</div><div class="line"></div><div class="line">            offtout((scan - lenb) - (lastscan + lenf), buf);</div><div class="line">            BZ2_bzWrite(&amp;bz2err, pfbz2, buf, 8);</div><div class="line">            if (bz2err != BZ_OK)</div><div class="line">                errx(1, &quot;BZ2_bzWrite, bz2err = %d&quot;, bz2err);</div><div class="line"></div><div class="line">            offtout((pos - lenb) - (lastpos + lenf), buf);</div><div class="line">            BZ2_bzWrite(&amp;bz2err, pfbz2, buf, 8);</div><div class="line">            if (bz2err != BZ_OK)</div><div class="line">                errx(1, &quot;BZ2_bzWrite, bz2err = %d&quot;, bz2err);</div><div class="line"></div><div class="line">            lastscan = scan - lenb;</div><div class="line">            lastpos = pos - lenb;</div><div class="line">            lastoffset = pos - scan;</div><div class="line">        &#125;;</div><div class="line">    &#125;;</div><div class="line">    BZ2_bzWriteClose(&amp;bz2err, pfbz2, 0, NULL, NULL);</div><div class="line">    if (bz2err != BZ_OK)</div><div class="line">        errx(1, &quot;BZ2_bzWriteClose, bz2err = %d&quot;, bz2err);</div><div class="line"></div><div class="line">    /* Compute size of compressed ctrl data */</div><div class="line">    if ((len = ftello(pf)) == -1)</div><div class="line">        err(1, &quot;ftello&quot;);</div><div class="line">    offtout(len - 32, header + 8);</div><div class="line"></div><div class="line">    /* Write compressed diff data */</div><div class="line">    if ((pfbz2 = BZ2_bzWriteOpen(&amp;bz2err, pf, 9, 0, 0)) == NULL)</div><div class="line">        errx(1, &quot;BZ2_bzWriteOpen, bz2err = %d&quot;, bz2err);</div><div class="line">    BZ2_bzWrite(&amp;bz2err, pfbz2, db, dblen);</div><div class="line">    if (bz2err != BZ_OK)</div><div class="line">        errx(1, &quot;BZ2_bzWrite, bz2err = %d&quot;, bz2err);</div><div class="line">    BZ2_bzWriteClose(&amp;bz2err, pfbz2, 0, NULL, NULL);</div><div class="line">    if (bz2err != BZ_OK)</div><div class="line">        errx(1, &quot;BZ2_bzWriteClose, bz2err = %d&quot;, bz2err);</div><div class="line"></div><div class="line">    /* Compute size of compressed diff data */</div><div class="line">    if ((newsize = ftello(pf)) == -1)</div><div class="line">        err(1, &quot;ftello&quot;);</div><div class="line">    offtout(newsize - len, header + 16);</div><div class="line"></div><div class="line">    /* Write compressed extra data */</div><div class="line">    if ((pfbz2 = BZ2_bzWriteOpen(&amp;bz2err, pf, 9, 0, 0)) == NULL)</div><div class="line">        errx(1, &quot;BZ2_bzWriteOpen, bz2err = %d&quot;, bz2err);</div><div class="line">    BZ2_bzWrite(&amp;bz2err, pfbz2, eb, eblen);</div><div class="line">    if (bz2err != BZ_OK)</div><div class="line">        errx(1, &quot;BZ2_bzWrite, bz2err = %d&quot;, bz2err);</div><div class="line">    BZ2_bzWriteClose(&amp;bz2err, pfbz2, 0, NULL, NULL);</div><div class="line">    if (bz2err != BZ_OK)</div><div class="line">        errx(1, &quot;BZ2_bzWriteClose, bz2err = %d&quot;, bz2err);</div><div class="line"></div><div class="line">    /* Seek to the beginning, write the header, and close the file */</div><div class="line">    if (fseeko(pf, 0, SEEK_SET))</div><div class="line">        err(1, &quot;fseeko&quot;);</div><div class="line">    if (fwrite(header, 32, 1, pf) != 1)</div><div class="line">        err(1, &quot;fwrite(%s)&quot;, argv[3]);</div><div class="line">    if (fclose(pf))</div><div class="line">        err(1, &quot;fclose&quot;);</div><div class="line"></div><div class="line">    /* Free the memory we used */</div><div class="line">    free(db);</div><div class="line">    free(eb);</div><div class="line">    free(I);</div><div class="line">    free(old);</div><div class="line">    free(new);</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//JNI 调用</div><div class="line">JNIEXPORT jstring JNICALL Java_sven_com_apkpatchserver_DiffUtils_genDiff</div><div class="line">        (JNIEnv *env, jclass jcls, jstring oldfile_jstr, jstring newfile_jstr,</div><div class="line">         jstring patchfile_jstr) &#123;</div><div class="line">    int argc = 4;</div><div class="line">    char *oldfile = (char *) (*env)-&gt;GetStringUTFChars(env, oldfile_jstr, NULL);</div><div class="line">    char *newfile = (char *) (*env)-&gt;GetStringUTFChars(env, newfile_jstr, NULL);</div><div class="line">    char *patchfile = (char *) (*env)-&gt;GetStringUTFChars(env, patchfile_jstr, NULL);</div><div class="line"></div><div class="line">//参数（第一个参数无效）</div><div class="line">    char *argv[4];</div><div class="line">    argv[0] = &quot;bsdiff&quot;;</div><div class="line">    argv[1] = oldfile;</div><div class="line">    argv[2] = newfile;</div><div class="line">    argv[3] = patchfile;</div><div class="line">//这个方法是和新方法，他会根据 old.apk new.apk 进行拆分，然后生成 patch 放到指定文件夹下</div><div class="line">    bsdiff_main(argc, argv);</div><div class="line"></div><div class="line">    (*env)-&gt;ReleaseStringUTFChars(env, oldfile_jstr, oldfile);</div><div class="line">    (*env)-&gt;ReleaseStringUTFChars(env, newfile_jstr, newfile);</div><div class="line">    (*env)-&gt;ReleaseStringUTFChars(env, patchfile_jstr, patchfile);</div><div class="line"></div><div class="line">    return (*env)-&gt;NewStringUTF(env, &quot;hello hello&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//void main(int argc, char **argv) &#123;</div><div class="line">//</div><div class="line">//&#125;</div></pre></td></tr></table></figure>
-<p>到这里 拆分就完成了。<br>只需要在java代码里执行如下代码就行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">        findViewById(R.id.diff).setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line">                String s = DiffUtils.genDiff(Constants.OLD_APK_PATH, Constants.NEW_APK_PATH, Constants.PATCH_FILE);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">Constants.OLD_APK_PATH： old.apk 路径</div><div class="line">Constants.NEW_APK_PATH： new.apk 路径</div><div class="line">Constants.PATCH_FILE：   生成的patch 路径</div></pre></td></tr></table></figure>
-<p>到这里 拆分 就都讲完了。合并 的代码 大同小异这里就不赘述了。我会把代码放到github上去。</p>
-<h3 id="使用patch-so-进行apk-与patch的合并。"><a href="#使用patch-so-进行apk-与patch的合并。" class="headerlink" title="使用patch.so 进行apk 与patch的合并。"></a>使用patch.so 进行apk 与patch的合并。</h3><p>新建一个项目，假设这个项目就是我们公司的app了。把刚才生成好的 patch.so文件 拿过来 复制到这里<br><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9f605940a?w=994&amp;h=918&amp;f=png&amp;s=118521" alt="这里写图片描述"></p>
-<p>然后我们开始编写 PatchUtils的代码了</p>
-<p><strong>注意</strong></p>
-<ul>
-<li>我们如果想完美的使用so文件。我们带么的 名字 和路径 都要和  生成so 项目的代码的路径一致<br><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9fcfd33ae?w=1144&amp;h=998&amp;f=png&amp;s=159360" alt="这里写图片描述"><br>不然的话 代码 引用上就会有问题。<br>这就是为什么我们引用三方so文件 无法运行或者 写的代码报红了</li>
-</ul>
-<p>比如这样<br><img src="https://user-gold-cdn.xitu.io/2018/2/1/161502f9ea25e0fe?w=2382&amp;h=1028&amp;f=png&amp;s=325591" alt="这里写图片描述"></p>
-<p>引用成功的话。基本就完成了。<br>我们只需要在代码里 简单调用就可以了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">class ApkUpdateTask extends AsyncTask&lt;Void, Void, Boolean&gt; &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected Boolean doInBackground(Void... params) &#123;</div><div class="line">        try &#123;</div><div class="line">            //1.下载差分包</div><div class="line">            String oldfile = ApkUtils.getSourceApkPath(MainActivity.this, getPackageName());</div><div class="line">            //2.合并得到最新版本的APK文件</div><div class="line">            String newfile = Constants.OLD_2_NEW_APK;</div><div class="line">            String patchfile = Constants.PATCH_FILE;</div><div class="line">            PatchUtils.patch(oldfile, newfile, patchfile);</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    protected void onPostExecute(Boolean result) &#123;</div><div class="line">        super.onPostExecute(result);</div><div class="line"></div><div class="line">        //3.安装</div><div class="line">        if (result) &#123;</div><div class="line">            Toast.makeText(MainActivity.this, &quot;您正在进行无流量更新&quot;, Toast.LENGTH_SHORT).show();</div><div class="line">            ApkUtils.installApk(MainActivity.this, Constants.OLD_2_NEW_APK);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>到这里 我们就完成了apk 的 增量更新</p>
-<h2 id="覆盖安装的一些坑"><a href="#覆盖安装的一些坑" class="headerlink" title="覆盖安装的一些坑"></a>覆盖安装的一些坑</h2><ul>
-<li>增量更新，在手机上安装的 apk。一定要是 release key 打包的，并且 v1 v2 对勾都要选中</li>
-<li>覆盖安装 要适配7.0<br><a href="https://wanghao200906.github.io/2018/01/31/android%20%E4%BD%BF%E7%94%A8FileProvider%20%E5%85%BC%E5%AE%B9apk%20%E5%9C%A87.0%E7%89%88%E6%9C%AC%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/">https://wanghao200906.github.io/2018/01/31/android%20%E4%BD%BF%E7%94%A8FileProvider%20%E5%85%BC%E5%AE%B9apk%20%E5%9C%A87.0%E7%89%88%E6%9C%AC%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</a></li>
-<li>覆盖安装不要忘记 这句代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</div></pre></td></tr></table></figure>
-<ul>
-<li>如果怎么都不行，可以查看 你的apk包是否有读写权限  可以这样</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">String[] command = &#123;&quot;chmod&quot;, &quot;777&quot;, Constants.OLD_2_NEW_APK&#125;;</div><div class="line">ProcessBuilder builder = new ProcessBuilder(command);</div><div class="line">try &#123;</div><div class="line">    builder.start();</div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>不懂得可以查看代码，最直观<br><a href="https://github.com/wanghao200906/NdkBsDiffPractise" target="_blank" rel="external">https://github.com/wanghao200906/NdkBsDiffPractise</a></p>
+<!-- ## 演示 -->
+<!-- 增量更新就是，app自动更新的时候不会把整个新版本的apk包下载下来 进行覆盖安装，而是将一个 新版本和老版本 进行比较 生成一个 patch包，把patch包下载下来 和当前版本进行合并。然后在进行覆盖安装。 -->
+<!-- 为了演示 我们先创建一个项目。将相同包名 的两个不同版本的apk 放到assert 目录下。然后将这两个包拷贝到 指定文件夹下。在生成一个patch 包。 -->
+<!-- 下过如下 -->
+<!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9ad024ea9?w=294&h=565&f=gif&s=350406) -->
+<!-- 就这样 我们把assets目录下的两个apk。拷贝到了文件夹下，并生成了一个patch包。 -->
+<!-- 这个patch包就是 app-new 和app-old 中的区别的部分。 -->
+<!-- 然后我们可以吧这个patch包放到服务器。这样用户在使用app的时候 只用下载patch包，然后和当前app进行合并。就可以覆盖安装了。 -->
+<!-- 下面我们在看一下 合并包的效果。我们还在该手机上。直接安装目录下的app-old.apk,然后点击合成按钮。会在线程里合成一个新的apk。然后进行覆盖安装。 -->
+<!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9b1930ed1?w=294&h=565&f=gif&s=226196) -->
+<!-- 我们看到了。我们的app 进行了覆盖安装。 -->
+<!-- - 注意： -->
+<pre><code>&lt;!-- - 这个叫oldtonew.apk 并不是这个文件夹下的 patch 和 app-old.apk合成的。因为用户使用的时候并不一定手机里会有 老版本的apk安装包。 --&gt;
+</code></pre>   <!-- - 高于7.0 版本 的系统 覆盖安装会有一些坑。可以查看这篇文章。 -->
+<pre><code>&lt;!-- https://wanghao200906.github.io/2018/01/31/android%20%E4%BD%BF%E7%94%A8FileProvider%20%E5%85%BC%E5%AE%B9apk%20%E5%9C%A87.0%E7%89%88%E6%9C%AC%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/ --&gt;
+</code></pre><!-- ## 包的拆分 -->
+<!-- ### 需要的工具 -->
+  <!-- - bzip2 : http://www.bzip.org/downloads.html  下载放一边 -->
+  <!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9b88657bd?w=2054&h=1064&f=png&s=263107) -->
+  <!-- - bsdiff :  https://github.com/mendsley/bsdiff  clone 一波 -->
+<!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9ac6a7d59?w=1640&h=1426&f=png&s=260773) -->
+<!-- 有用的就两个文件 。ok了。下载完这些 准备完事儿了。开始写代码了。 -->
+<!-- ### 如何生成多个so文件（先了解一下） -->
+<!-- 如果androidstudio 3.0 上还不会使用ndk 开发 请看这篇文章 -->
+<!-- https://wanghao200906.github.io/2018/01/25/AndroidStudio3.0%20NDK%E5%BC%80%E5%8F%91-%20%E5%A6%82%E4%BD%95%E5%9C%A8%E5%B7%B2%E6%9C%89%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%9B%E8%A1%8CNDK%E5%BC%80%E5%8F%91/ -->
+<!-- 看完这个基本了解个大概了。androidstudio 已经不用 编写 .mk 文件了。 -->
+<!-- 我们想创建一个项目。生成一个 diff.so 和patch.so 两个包。怎么做呢 -->
+<!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9ad15266c?w=998&h=1176&f=png&s=144580) -->
+<!-- 这样一目了然了。再看看 这三个CmakeList.txt 怎么写的呢 -->
+<!-- ``` -->
+<!-- diff的 CmakeList.txt -->
+<!-- cmake_minimum_required(VERSION 3.4.1) -->
+<!-- add_library( # Specifies the name of the library. -->
+<!-- # 这里是你so的名字。刚才在 MainActivity里面要引用的 -->
+<pre><code> &lt;!-- diff --&gt;
+
+ &lt;!-- # Sets the library as a shared library. --&gt;
+ &lt;!-- SHARED --&gt;
+
+ &lt;!-- # Provides a relative path to your source file(s). --&gt;
+  &lt;!-- #这里是刚才 创建的c++ 代码的名字 --&gt;
+ &lt;!-- Diff.c --&gt;
+&lt;!-- ) --&gt;
+</code></pre><!-- find_library( # Sets the name of the path variable. -->
+<pre><code>&lt;!-- log-lib --&gt;
+
+&lt;!-- # Specifies the name of the NDK library that --&gt;
+&lt;!-- # you want CMake to locate. --&gt;
+&lt;!-- log ) --&gt;
+</code></pre><!-- target_link_libraries( # Specifies the target library. -->
+<pre><code>&lt;!-- diff --&gt;
+&lt;!-- # Links the target library to the log library --&gt;
+&lt;!-- # included in the NDK. --&gt;
+&lt;!-- ${log-lib} ) --&gt;
+</code></pre><!-- patch 的 CmakeList.txt -->
+<!-- cmake_minimum_required(VERSION 3.4.1) -->
+<!-- # include_directories( -->
+<!-- #             "${PROJECT_SOURCE_DIR}/..") -->
+<!-- add_library( # Specifies the name of the library. -->
+<!-- # 这里是你so的名字。刚才在 MainActivity里面要引用的 -->
+<pre><code> &lt;!-- patch --&gt;
+
+ &lt;!-- # Sets the library as a shared library. --&gt;
+ &lt;!-- SHARED --&gt;
+
+ &lt;!-- # Provides a relative path to your source file(s). --&gt;
+  &lt;!-- #这里是刚才 创建的c++ 代码的名字 --&gt;
+ &lt;!-- PatchUtils.c --&gt;
+&lt;!-- ) --&gt;
+</code></pre><!-- find_library( # Sets the name of the path variable. -->
+<pre><code>&lt;!-- log-lib --&gt;
+
+&lt;!-- # Specifies the name of the NDK library that --&gt;
+&lt;!-- # you want CMake to locate. --&gt;
+&lt;!-- log ) --&gt;
+</code></pre><!-- target_link_libraries( # Specifies the target library. -->
+<pre><code> &lt;!-- patch --&gt;
+&lt;!-- # Links the target library to the log library --&gt;
+&lt;!-- # included in the NDK. --&gt;
+&lt;!-- ${log-lib} ) --&gt;
+</code></pre><!-- 被gradle 引用的 CmakeList.txt -->
+<!-- cmake_minimum_required(VERSION 3.4.1) -->
+<!-- #添加子目录,将会调用子目录中的CMakeLists.txt -->
+<!-- ADD_SUBDIRECTORY(diff) -->
+<!-- ADD_SUBDIRECTORY(patch) -->
+<!-- ``` -->
+<!-- 在看一下 我们的gradle文件 -->
+<!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9c73679b8?w=2090&h=1222&f=png&s=175908) -->
+<!-- 请注意一下路径。 -->
+<!-- 如果我们的代码写的没有问题。直接 build ->make project -->
+<!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9defd9c44?w=816&h=1240&f=png&s=121001) -->
+<!-- 可以看到 我们生成了  diff.so 和 patch.so 文件夹。 -->
+<!-- 现在如果我们在创建什么项目 直接使用这两个so文件。就可以进行  拆分 和合并了。 -->
+<!-- ### 拆分，合并代码编写。 -->
+<!-- 拆分 和 合并 要使用 刚才 下载的 bsdiff 文件。bsdiff 文件又依赖于 bzip2 的库 -->
+<!-- 因为拆分 与 合并 基本类似。就展示 拆分的代码了。我会把所有代码放到github上去。因为这两个库在使用的时候有特别多的坑。 -->
+<!-- 先看一下目录结构吧 -->
+<!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9e5886095?w=1092&h=1060&f=png&s=122398) -->
+<!-- 把刚才下载的bzip2 包放到 cpp目录下。**注意** 不是全部都放过来。 -->
+<!-- 在diff目录下新建一些 拆分需要的代码。 -->
+<!-- **注意** -->
+<pre><code>&lt;!-- 如果你不知道 sven_com_apkpatchserver_DiffUtils.h --&gt;
+&lt;!-- 这个文件是如何生成的，你需要先看这篇文章，不然下面的看不懂了 --&gt;
+</code></pre><!-- https://wanghao200906.github.io/2018/01/25/AndroidStudio3.0%20NDK%E5%BC%80%E5%8F%91-%20%E5%A6%82%E4%BD%95%E5%9C%A8%E5%B7%B2%E6%9C%89%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%9B%E8%A1%8CNDK%E5%BC%80%E5%8F%91/ -->
+<!-- 新建一个 DiffUtils 的工具类 -->
+<!-- ``` -->
+<!-- public class DiffUtils { -->
+<pre><code>&lt;!-- static {//导入libhello.so 文件。 这里面只写hello就可以 --&gt;
+    &lt;!-- System.loadLibrary(&quot;diff&quot;); --&gt;
+&lt;!-- } --&gt;
+
+&lt;!-- /** --&gt;
+ &lt;!-- * native方法 比较路径为oldPath的apk与newPath的apk之间差异，并生成patch包，存储于patchPath --&gt;
+ &lt;!-- * &lt;p&gt; --&gt;
+ &lt;!-- * 返回：0，说明操作成功 --&gt;
+ &lt;!-- * --&gt;
+ &lt;!-- * @param oldApkPath 示例:/sdcard/old.apk --&gt;
+ &lt;!-- * @param newApkPath 示例:/sdcard/new.apk --&gt;
+ &lt;!-- * @param patchPath  示例:/sdcard/xx.patch --&gt;
+ &lt;!-- * @return --&gt;
+ &lt;!-- */ --&gt;
+&lt;!-- public static native String genDiff(String oldApkPath, String newApkPath, String patchPath); --&gt;
+</code></pre><!-- } -->
+<!-- ``` -->
+<!-- 生成 他的 native 头文件 -->
+<!-- sven_com_apkpatchserver_DiffUtils.h -->
+<!-- ``` -->
+<!-- /* DO NOT EDIT THIS FILE - it is machine generated */ -->
+<!-- #include <jni.h> -->
+<!-- /* Header for class sven_com_apkpatchserver_DiffUtils */ -->
+<!-- #ifndef _Included_sven_com_apkpatchserver_DiffUtils -->
+<!-- #define _Included_sven_com_apkpatchserver_DiffUtils -->
+<!-- #ifdef __cplusplus -->
+<!-- extern "C" { -->
+<!-- #endif -->
+<!-- /* -->
+ <!-- * Class:     sven_com_apkpatchserver_DiffUtils -->
+ <!-- * Method:    genDiff -->
+ <!-- * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I -->
+ <!-- */ -->
+<!-- JNIEXPORT jstring JNICALL Java_sven_com_apkpatchserver_DiffUtils_genDiff -->
+  <!-- (JNIEnv *, jclass, jstring, jstring, jstring); -->
+<!-- #ifdef __cplusplus -->
+<!-- } -->
+<!-- #endif -->
+<!-- #endif -->
+<!-- ``` -->
+<!-- 还记得 上文提到的github 中 有一个 bsdiff.c 的文件么 全部拷贝 放到diff文件夹下，这里更名为 diff.c 在这个代码的基础上进行编写 -->
+<!-- 代码如下，特别多。请小心。下面全是c 语言的代码了。如果看不懂可以先从jni学起。 -->
+<!-- ``` -->
+<!-- // -->
+<!-- // Created by mypro on 2018/1/28. -->
+<!-- // -->
+<!-- /*- -->
+ <!-- * Copyright 2003-2005 Colin Percival -->
+ <!-- * All rights reserved -->
+ <!-- * -->
+ <!-- * Redistribution and use in source and binary forms, with or without -->
+ <!-- * modification, are permitted providing that the following conditions -->
+ <!-- * are met: -->
+ <!-- * 1. Redistributions of source code must retain the above copyright -->
+ <!-- *    notice, this list of conditions and the following disclaimer. -->
+ <!-- * 2. Redistributions in binary form must reproduce the above copyright -->
+ <!-- *    notice, this list of conditions and the following disclaimer in the -->
+ <!-- *    documentation and/or other materials provided with the distribution. -->
+ <!-- * -->
+ <!-- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR -->
+ <!-- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED -->
+ <!-- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE -->
+ <!-- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY -->
+ <!-- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL -->
+ <!-- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS -->
+ <!-- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) -->
+ <!-- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, -->
+ <!-- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING -->
+ <!-- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE -->
+ <!-- * POSSIBILITY OF SUCH DAMAGE. -->
+ <!-- */ -->
+<!-- #include "sven_com_apkpatchserver_DiffUtils.h" -->
+<!-- #include "../bzip2/bzlib.c" -->
+<!-- #include "../bzip2/crctable.c" -->
+<!-- #include "../bzip2/compress.c" -->
+<!-- #include "../bzip2/decompress.c" -->
+<!-- #include "../bzip2/randtable.c" -->
+<!-- #include "../bzip2/blocksort.c" -->
+<!-- #include "../bzip2/huffman.c" -->
+<!-- #include <sys/types.h> -->
+<!-- #include <err.h> -->
+<!-- #include <fcntl.h> -->
+<!-- #include <stdio.h> -->
+<!-- #include <stdlib.h> -->
+<!-- #include <string.h> -->
+<!-- #include <unistd.h> -->
+<!-- #define MIN(x, y) (((x)<(y)) ? (x) : (y)) -->
+<!-- static void split(off_t *I, off_t *V, off_t start, off_t len, off_t h) { -->
+<pre><code>&lt;!-- off_t i, j, k, x, tmp, jj, kk; --&gt;
+
+&lt;!-- if (len &lt; 16) { --&gt;
+    &lt;!-- for (k = start; k &lt; start + len; k += j) { --&gt;
+        &lt;!-- j = 1; --&gt;
+        &lt;!-- x = V[I[k] + h]; --&gt;
+        &lt;!-- for (i = 1; k + i &lt; start + len; i++) { --&gt;
+            &lt;!-- if (V[I[k + i] + h] &lt; x) { --&gt;
+                &lt;!-- x = V[I[k + i] + h]; --&gt;
+                &lt;!-- j = 0; --&gt;
+            &lt;!-- }; --&gt;
+            &lt;!-- if (V[I[k + i] + h] == x) { --&gt;
+                &lt;!-- tmp = I[k + j]; --&gt;
+                &lt;!-- I[k + j] = I[k + i]; --&gt;
+                &lt;!-- I[k + i] = tmp; --&gt;
+                &lt;!-- j++; --&gt;
+            &lt;!-- }; --&gt;
+        &lt;!-- }; --&gt;
+        &lt;!-- for (i = 0; i &lt; j; i++) V[I[k + i]] = k + j - 1; --&gt;
+        &lt;!-- if (j == 1) I[k] = -1; --&gt;
+    &lt;!-- }; --&gt;
+    &lt;!-- return; --&gt;
+&lt;!-- }; --&gt;
+
+&lt;!-- x = V[I[start + len / 2] + h]; --&gt;
+&lt;!-- jj = 0; --&gt;
+&lt;!-- kk = 0; --&gt;
+&lt;!-- for (i = start; i &lt; start + len; i++) { --&gt;
+    &lt;!-- if (V[I[i] + h] &lt; x) jj++; --&gt;
+    &lt;!-- if (V[I[i] + h] == x) kk++; --&gt;
+&lt;!-- }; --&gt;
+&lt;!-- jj += start; --&gt;
+&lt;!-- kk += jj; --&gt;
+
+&lt;!-- i = start; --&gt;
+&lt;!-- j = 0; --&gt;
+&lt;!-- k = 0; --&gt;
+&lt;!-- while (i &lt; jj) { --&gt;
+    &lt;!-- if (V[I[i] + h] &lt; x) { --&gt;
+        &lt;!-- i++; --&gt;
+    &lt;!-- } else if (V[I[i] + h] == x) { --&gt;
+        &lt;!-- tmp = I[i]; --&gt;
+        &lt;!-- I[i] = I[jj + j]; --&gt;
+        &lt;!-- I[jj + j] = tmp; --&gt;
+        &lt;!-- j++; --&gt;
+    &lt;!-- } else { --&gt;
+        &lt;!-- tmp = I[i]; --&gt;
+        &lt;!-- I[i] = I[kk + k]; --&gt;
+        &lt;!-- I[kk + k] = tmp; --&gt;
+        &lt;!-- k++; --&gt;
+    &lt;!-- }; --&gt;
+&lt;!-- }; --&gt;
+
+&lt;!-- while (jj + j &lt; kk) { --&gt;
+    &lt;!-- if (V[I[jj + j] + h] == x) { --&gt;
+        &lt;!-- j++; --&gt;
+    &lt;!-- } else { --&gt;
+        &lt;!-- tmp = I[jj + j]; --&gt;
+        &lt;!-- I[jj + j] = I[kk + k]; --&gt;
+        &lt;!-- I[kk + k] = tmp; --&gt;
+        &lt;!-- k++; --&gt;
+    &lt;!-- }; --&gt;
+&lt;!-- }; --&gt;
+
+&lt;!-- if (jj &gt; start) split(I, V, start, jj - start, h); --&gt;
+
+&lt;!-- for (i = 0; i &lt; kk - jj; i++) V[I[jj + i]] = kk - 1; --&gt;
+&lt;!-- if (jj == kk - 1) I[jj] = -1; --&gt;
+
+&lt;!-- if (start + len &gt; kk) split(I, V, kk, start + len - kk, h); --&gt;
+</code></pre><!-- } -->
+<!-- static void qsufsort(off_t *I, off_t *V, u_char *old, off_t oldsize) { -->
+<pre><code>&lt;!-- off_t buckets[256]; --&gt;
+&lt;!-- off_t i, h, len; --&gt;
+
+&lt;!-- for (i = 0; i &lt; 256; i++) buckets[i] = 0; --&gt;
+&lt;!-- for (i = 0; i &lt; oldsize; i++) buckets[old[i]]++; --&gt;
+&lt;!-- for (i = 1; i &lt; 256; i++) buckets[i] += buckets[i - 1]; --&gt;
+&lt;!-- for (i = 255; i &gt; 0; i--) buckets[i] = buckets[i - 1]; --&gt;
+&lt;!-- buckets[0] = 0; --&gt;
+
+&lt;!-- for (i = 0; i &lt; oldsize; i++) I[++buckets[old[i]]] = i; --&gt;
+&lt;!-- I[0] = oldsize; --&gt;
+&lt;!-- for (i = 0; i &lt; oldsize; i++) V[i] = buckets[old[i]]; --&gt;
+&lt;!-- V[oldsize] = 0; --&gt;
+&lt;!-- for (i = 1; i &lt; 256; i++) if (buckets[i] == buckets[i - 1] + 1) I[buckets[i]] = -1; --&gt;
+&lt;!-- I[0] = -1; --&gt;
+
+&lt;!-- for (h = 1; I[0] != -(oldsize + 1); h += h) { --&gt;
+    &lt;!-- len = 0; --&gt;
+    &lt;!-- for (i = 0; i &lt; oldsize + 1;) { --&gt;
+        &lt;!-- if (I[i] &lt; 0) { --&gt;
+            &lt;!-- len -= I[i]; --&gt;
+            &lt;!-- i -= I[i]; --&gt;
+        &lt;!-- } else { --&gt;
+            &lt;!-- if (len) I[i - len] = -len; --&gt;
+            &lt;!-- len = V[I[i]] + 1 - i; --&gt;
+            &lt;!-- split(I, V, i, len, h); --&gt;
+            &lt;!-- i += len; --&gt;
+            &lt;!-- len = 0; --&gt;
+        &lt;!-- }; --&gt;
+    &lt;!-- }; --&gt;
+    &lt;!-- if (len) I[i - len] = -len; --&gt;
+&lt;!-- }; --&gt;
+
+&lt;!-- for (i = 0; i &lt; oldsize + 1; i++) I[V[i]] = i; --&gt;
+</code></pre><!-- } -->
+<!-- static off_t matchlen(u_char *old, off_t oldsize, u_char *new, off_t newsize) { -->
+<pre><code>&lt;!-- off_t i; --&gt;
+
+&lt;!-- for (i = 0; (i &lt; oldsize) &amp;&amp; (i &lt; newsize); i++) --&gt;
+    &lt;!-- if (old[i] != new[i]) break; --&gt;
+
+&lt;!-- return i; --&gt;
+</code></pre><!-- } -->
+<!-- static off_t search(off_t *I, u_char *old, off_t oldsize, -->
+<pre><code>                &lt;!-- u_char *new, off_t newsize, off_t st, off_t en, off_t *pos) { --&gt;
+&lt;!-- off_t x, y; --&gt;
+
+&lt;!-- if (en - st &lt; 2) { --&gt;
+    &lt;!-- x = matchlen(old + I[st], oldsize - I[st], new, newsize); --&gt;
+    &lt;!-- y = matchlen(old + I[en], oldsize - I[en], new, newsize); --&gt;
+
+    &lt;!-- if (x &gt; y) { --&gt;
+        &lt;!-- *pos = I[st]; --&gt;
+        &lt;!-- return x; --&gt;
+    &lt;!-- } else { --&gt;
+        &lt;!-- *pos = I[en]; --&gt;
+        &lt;!-- return y; --&gt;
+    &lt;!-- } --&gt;
+&lt;!-- }; --&gt;
+
+&lt;!-- x = st + (en - st) / 2; --&gt;
+&lt;!-- if (memcmp(old + I[x], new, MIN(oldsize - I[x], newsize)) &lt; 0) { --&gt;
+    &lt;!-- return search(I, old, oldsize, new, newsize, x, en, pos); --&gt;
+&lt;!-- } else { --&gt;
+    &lt;!-- return search(I, old, oldsize, new, newsize, st, x, pos); --&gt;
+&lt;!-- }; --&gt;
+</code></pre><!-- } -->
+<!-- static void offtout(off_t x, u_char *buf) { -->
+<pre><code>&lt;!-- off_t y; --&gt;
+
+&lt;!-- if (x &lt; 0) y = -x; else y = x; --&gt;
+
+&lt;!-- buf[0] = y % 256; --&gt;
+&lt;!-- y -= buf[0]; --&gt;
+&lt;!-- y = y / 256; --&gt;
+&lt;!-- buf[1] = y % 256; --&gt;
+&lt;!-- y -= buf[1]; --&gt;
+&lt;!-- y = y / 256; --&gt;
+&lt;!-- buf[2] = y % 256; --&gt;
+&lt;!-- y -= buf[2]; --&gt;
+&lt;!-- y = y / 256; --&gt;
+&lt;!-- buf[3] = y % 256; --&gt;
+&lt;!-- y -= buf[3]; --&gt;
+&lt;!-- y = y / 256; --&gt;
+&lt;!-- buf[4] = y % 256; --&gt;
+&lt;!-- y -= buf[4]; --&gt;
+&lt;!-- y = y / 256; --&gt;
+&lt;!-- buf[5] = y % 256; --&gt;
+&lt;!-- y -= buf[5]; --&gt;
+&lt;!-- y = y / 256; --&gt;
+&lt;!-- buf[6] = y % 256; --&gt;
+&lt;!-- y -= buf[6]; --&gt;
+&lt;!-- y = y / 256; --&gt;
+&lt;!-- buf[7] = y % 256; --&gt;
+
+&lt;!-- if (x &lt; 0) buf[7] |= 0x80; --&gt;
+</code></pre><!-- } -->
+<!-- int bsdiff_main(int argc, char *argv[]) { -->
+<pre><code>&lt;!-- int fd; --&gt;
+&lt;!-- u_char *old, *new; --&gt;
+&lt;!-- off_t oldsize, newsize; --&gt;
+&lt;!-- off_t *I, *V; --&gt;
+&lt;!-- off_t scan, pos, len; --&gt;
+&lt;!-- off_t lastscan, lastpos, lastoffset; --&gt;
+&lt;!-- off_t oldscore, scsc; --&gt;
+&lt;!-- off_t s, Sf, lenf, Sb, lenb; --&gt;
+&lt;!-- off_t overlap, Ss, lens; --&gt;
+&lt;!-- off_t i; --&gt;
+&lt;!-- off_t dblen, eblen; --&gt;
+&lt;!-- u_char *db, *eb; --&gt;
+&lt;!-- u_char buf[8]; --&gt;
+&lt;!-- u_char header[32]; --&gt;
+&lt;!-- FILE *pf; --&gt;
+&lt;!-- BZFILE *pfbz2; --&gt;
+&lt;!-- int bz2err; --&gt;
+
+&lt;!-- if (argc != 4) errx(1, &quot;usage: %s oldfile newfile patchfile\n&quot;, argv[0]); --&gt;
+
+&lt;!-- /* Allocate oldsize+1 bytes instead of oldsize bytes to ensure --&gt;
+    &lt;!-- that we never try to malloc(0) and get a NULL pointer */ --&gt;
+&lt;!-- if (((fd = open(argv[1], O_RDONLY, 0)) &lt; 0) || --&gt;
+    &lt;!-- ((oldsize = lseek(fd, 0, SEEK_END)) == -1) || --&gt;
+    &lt;!-- ((old = malloc(oldsize + 1)) == NULL) || --&gt;
+    &lt;!-- (lseek(fd, 0, SEEK_SET) != 0) || --&gt;
+    &lt;!-- (read(fd, old, oldsize) != oldsize) || --&gt;
+    &lt;!-- (close(fd) == -1)) --&gt;
+    &lt;!-- err(1, &quot;%s&quot;, argv[1]); --&gt;
+
+&lt;!-- if (((I = malloc((oldsize + 1) * sizeof(off_t))) == NULL) || --&gt;
+    &lt;!-- ((V = malloc((oldsize + 1) * sizeof(off_t))) == NULL)) --&gt;
+    &lt;!-- err(1, NULL); --&gt;
+
+&lt;!-- qsufsort(I, V, old, oldsize); --&gt;
+
+&lt;!-- free(V); --&gt;
+
+&lt;!-- /* Allocate newsize+1 bytes instead of newsize bytes to ensure --&gt;
+    &lt;!-- that we never try to malloc(0) and get a NULL pointer */ --&gt;
+&lt;!-- if (((fd = open(argv[2], O_RDONLY, 0)) &lt; 0) || --&gt;
+    &lt;!-- ((newsize = lseek(fd, 0, SEEK_END)) == -1) || --&gt;
+    &lt;!-- ((new = malloc(newsize + 1)) == NULL) || --&gt;
+    &lt;!-- (lseek(fd, 0, SEEK_SET) != 0) || --&gt;
+    &lt;!-- (read(fd, new, newsize) != newsize) || --&gt;
+    &lt;!-- (close(fd) == -1)) --&gt;
+    &lt;!-- err(1, &quot;%s&quot;, argv[2]); --&gt;
+
+&lt;!-- if (((db = malloc(newsize + 1)) == NULL) || --&gt;
+    &lt;!-- ((eb = malloc(newsize + 1)) == NULL)) --&gt;
+    &lt;!-- err(1, NULL); --&gt;
+&lt;!-- dblen = 0; --&gt;
+&lt;!-- eblen = 0; --&gt;
+
+&lt;!-- /* Create the patch file */ --&gt;
+&lt;!-- if ((pf = fopen(argv[3], &quot;w&quot;)) == NULL) --&gt;
+    &lt;!-- err(1, &quot;%s&quot;, argv[3]); --&gt;
+
+&lt;!-- /* Header is --&gt;
+    &lt;!-- 0    8     &quot;BSDIFF40&quot; --&gt;
+    &lt;!-- 8    8    length of bzip2ed ctrl block --&gt;
+    &lt;!-- 16    8    length of bzip2ed diff block --&gt;
+    &lt;!-- 24    8    length of new file */ --&gt;
+&lt;!-- /* File is --&gt;
+    &lt;!-- 0    32    Header --&gt;
+    &lt;!-- 32    ??    Bzip2ed ctrl block --&gt;
+    &lt;!-- ??    ??    Bzip2ed diff block --&gt;
+    &lt;!-- ??    ??    Bzip2ed extra block */ --&gt;
+&lt;!-- memcpy(header, &quot;BSDIFF40&quot;, 8); --&gt;
+&lt;!-- offtout(0, header + 8); --&gt;
+&lt;!-- offtout(0, header + 16); --&gt;
+&lt;!-- offtout(newsize, header + 24); --&gt;
+&lt;!-- if (fwrite(header, 32, 1, pf) != 1) --&gt;
+    &lt;!-- err(1, &quot;fwrite(%s)&quot;, argv[3]); --&gt;
+
+&lt;!-- /* Compute the differences, writing ctrl as we go */ --&gt;
+&lt;!-- if ((pfbz2 = BZ2_bzWriteOpen(&amp;bz2err, pf, 9, 0, 0)) == NULL) --&gt;
+    &lt;!-- errx(1, &quot;BZ2_bzWriteOpen, bz2err = %d&quot;, bz2err); --&gt;
+&lt;!-- scan = 0; --&gt;
+&lt;!-- len = 0; --&gt;
+&lt;!-- lastscan = 0; --&gt;
+&lt;!-- lastpos = 0; --&gt;
+&lt;!-- lastoffset = 0; --&gt;
+&lt;!-- while (scan &lt; newsize) { --&gt;
+    &lt;!-- oldscore = 0; --&gt;
+
+    &lt;!-- for (scsc = scan += len; scan &lt; newsize; scan++) { --&gt;
+        &lt;!-- len = search(I, old, oldsize, new + scan, newsize - scan, --&gt;
+                     &lt;!-- 0, oldsize, &amp;pos); --&gt;
+
+        &lt;!-- for (; scsc &lt; scan + len; scsc++) --&gt;
+            &lt;!-- if ((scsc + lastoffset &lt; oldsize) &amp;&amp; --&gt;
+                &lt;!-- (old[scsc + lastoffset] == new[scsc])) --&gt;
+                &lt;!-- oldscore++; --&gt;
+
+        &lt;!-- if (((len == oldscore) &amp;&amp; (len != 0)) || --&gt;
+            &lt;!-- (len &gt; oldscore + 8)) --&gt;
+            &lt;!-- break; --&gt;
+
+        &lt;!-- if ((scan + lastoffset &lt; oldsize) &amp;&amp; --&gt;
+            &lt;!-- (old[scan + lastoffset] == new[scan])) --&gt;
+            &lt;!-- oldscore--; --&gt;
+    &lt;!-- }; --&gt;
+
+    &lt;!-- if ((len != oldscore) || (scan == newsize)) { --&gt;
+        &lt;!-- s = 0; --&gt;
+        &lt;!-- Sf = 0; --&gt;
+        &lt;!-- lenf = 0; --&gt;
+        &lt;!-- for (i = 0; (lastscan + i &lt; scan) &amp;&amp; (lastpos + i &lt; oldsize);) { --&gt;
+            &lt;!-- if (old[lastpos + i] == new[lastscan + i]) s++; --&gt;
+            &lt;!-- i++; --&gt;
+            &lt;!-- if (s * 2 - i &gt; Sf * 2 - lenf) { --&gt;
+                &lt;!-- Sf = s; --&gt;
+                &lt;!-- lenf = i; --&gt;
+            &lt;!-- }; --&gt;
+        &lt;!-- }; --&gt;
+
+        &lt;!-- lenb = 0; --&gt;
+        &lt;!-- if (scan &lt; newsize) { --&gt;
+            &lt;!-- s = 0; --&gt;
+            &lt;!-- Sb = 0; --&gt;
+            &lt;!-- for (i = 1; (scan &gt;= lastscan + i) &amp;&amp; (pos &gt;= i); i++) { --&gt;
+                &lt;!-- if (old[pos - i] == new[scan - i]) s++; --&gt;
+                &lt;!-- if (s * 2 - i &gt; Sb * 2 - lenb) { --&gt;
+                    &lt;!-- Sb = s; --&gt;
+                    &lt;!-- lenb = i; --&gt;
+                &lt;!-- }; --&gt;
+            &lt;!-- }; --&gt;
+        &lt;!-- }; --&gt;
+
+        &lt;!-- if (lastscan + lenf &gt; scan - lenb) { --&gt;
+            &lt;!-- overlap = (lastscan + lenf) - (scan - lenb); --&gt;
+            &lt;!-- s = 0; --&gt;
+            &lt;!-- Ss = 0; --&gt;
+            &lt;!-- lens = 0; --&gt;
+            &lt;!-- for (i = 0; i &lt; overlap; i++) { --&gt;
+                &lt;!-- if (new[lastscan + lenf - overlap + i] == --&gt;
+                    &lt;!-- old[lastpos + lenf - overlap + i]) --&gt;
+                    &lt;!-- s++; --&gt;
+                &lt;!-- if (new[scan - lenb + i] == --&gt;
+                    &lt;!-- old[pos - lenb + i]) --&gt;
+                    &lt;!-- s--; --&gt;
+                &lt;!-- if (s &gt; Ss) { --&gt;
+                    &lt;!-- Ss = s; --&gt;
+                    &lt;!-- lens = i + 1; --&gt;
+                &lt;!-- }; --&gt;
+            &lt;!-- }; --&gt;
+
+            &lt;!-- lenf += lens - overlap; --&gt;
+            &lt;!-- lenb -= lens; --&gt;
+        &lt;!-- }; --&gt;
+
+        &lt;!-- for (i = 0; i &lt; lenf; i++) --&gt;
+            &lt;!-- db[dblen + i] = new[lastscan + i] - old[lastpos + i]; --&gt;
+        &lt;!-- for (i = 0; i &lt; (scan - lenb) - (lastscan + lenf); i++) --&gt;
+            &lt;!-- eb[eblen + i] = new[lastscan + lenf + i]; --&gt;
+
+        &lt;!-- dblen += lenf; --&gt;
+        &lt;!-- eblen += (scan - lenb) - (lastscan + lenf); --&gt;
+
+        &lt;!-- offtout(lenf, buf); --&gt;
+        &lt;!-- BZ2_bzWrite(&amp;bz2err, pfbz2, buf, 8); --&gt;
+        &lt;!-- if (bz2err != BZ_OK) --&gt;
+            &lt;!-- errx(1, &quot;BZ2_bzWrite, bz2err = %d&quot;, bz2err); --&gt;
+
+        &lt;!-- offtout((scan - lenb) - (lastscan + lenf), buf); --&gt;
+        &lt;!-- BZ2_bzWrite(&amp;bz2err, pfbz2, buf, 8); --&gt;
+        &lt;!-- if (bz2err != BZ_OK) --&gt;
+            &lt;!-- errx(1, &quot;BZ2_bzWrite, bz2err = %d&quot;, bz2err); --&gt;
+
+        &lt;!-- offtout((pos - lenb) - (lastpos + lenf), buf); --&gt;
+        &lt;!-- BZ2_bzWrite(&amp;bz2err, pfbz2, buf, 8); --&gt;
+        &lt;!-- if (bz2err != BZ_OK) --&gt;
+            &lt;!-- errx(1, &quot;BZ2_bzWrite, bz2err = %d&quot;, bz2err); --&gt;
+
+        &lt;!-- lastscan = scan - lenb; --&gt;
+        &lt;!-- lastpos = pos - lenb; --&gt;
+        &lt;!-- lastoffset = pos - scan; --&gt;
+    &lt;!-- }; --&gt;
+&lt;!-- }; --&gt;
+&lt;!-- BZ2_bzWriteClose(&amp;bz2err, pfbz2, 0, NULL, NULL); --&gt;
+&lt;!-- if (bz2err != BZ_OK) --&gt;
+    &lt;!-- errx(1, &quot;BZ2_bzWriteClose, bz2err = %d&quot;, bz2err); --&gt;
+
+&lt;!-- /* Compute size of compressed ctrl data */ --&gt;
+&lt;!-- if ((len = ftello(pf)) == -1) --&gt;
+    &lt;!-- err(1, &quot;ftello&quot;); --&gt;
+&lt;!-- offtout(len - 32, header + 8); --&gt;
+
+&lt;!-- /* Write compressed diff data */ --&gt;
+&lt;!-- if ((pfbz2 = BZ2_bzWriteOpen(&amp;bz2err, pf, 9, 0, 0)) == NULL) --&gt;
+    &lt;!-- errx(1, &quot;BZ2_bzWriteOpen, bz2err = %d&quot;, bz2err); --&gt;
+&lt;!-- BZ2_bzWrite(&amp;bz2err, pfbz2, db, dblen); --&gt;
+&lt;!-- if (bz2err != BZ_OK) --&gt;
+    &lt;!-- errx(1, &quot;BZ2_bzWrite, bz2err = %d&quot;, bz2err); --&gt;
+&lt;!-- BZ2_bzWriteClose(&amp;bz2err, pfbz2, 0, NULL, NULL); --&gt;
+&lt;!-- if (bz2err != BZ_OK) --&gt;
+    &lt;!-- errx(1, &quot;BZ2_bzWriteClose, bz2err = %d&quot;, bz2err); --&gt;
+
+&lt;!-- /* Compute size of compressed diff data */ --&gt;
+&lt;!-- if ((newsize = ftello(pf)) == -1) --&gt;
+    &lt;!-- err(1, &quot;ftello&quot;); --&gt;
+&lt;!-- offtout(newsize - len, header + 16); --&gt;
+
+&lt;!-- /* Write compressed extra data */ --&gt;
+&lt;!-- if ((pfbz2 = BZ2_bzWriteOpen(&amp;bz2err, pf, 9, 0, 0)) == NULL) --&gt;
+    &lt;!-- errx(1, &quot;BZ2_bzWriteOpen, bz2err = %d&quot;, bz2err); --&gt;
+&lt;!-- BZ2_bzWrite(&amp;bz2err, pfbz2, eb, eblen); --&gt;
+&lt;!-- if (bz2err != BZ_OK) --&gt;
+    &lt;!-- errx(1, &quot;BZ2_bzWrite, bz2err = %d&quot;, bz2err); --&gt;
+&lt;!-- BZ2_bzWriteClose(&amp;bz2err, pfbz2, 0, NULL, NULL); --&gt;
+&lt;!-- if (bz2err != BZ_OK) --&gt;
+    &lt;!-- errx(1, &quot;BZ2_bzWriteClose, bz2err = %d&quot;, bz2err); --&gt;
+
+&lt;!-- /* Seek to the beginning, write the header, and close the file */ --&gt;
+&lt;!-- if (fseeko(pf, 0, SEEK_SET)) --&gt;
+    &lt;!-- err(1, &quot;fseeko&quot;); --&gt;
+&lt;!-- if (fwrite(header, 32, 1, pf) != 1) --&gt;
+    &lt;!-- err(1, &quot;fwrite(%s)&quot;, argv[3]); --&gt;
+&lt;!-- if (fclose(pf)) --&gt;
+    &lt;!-- err(1, &quot;fclose&quot;); --&gt;
+
+&lt;!-- /* Free the memory we used */ --&gt;
+&lt;!-- free(db); --&gt;
+&lt;!-- free(eb); --&gt;
+&lt;!-- free(I); --&gt;
+&lt;!-- free(old); --&gt;
+&lt;!-- free(new); --&gt;
+
+&lt;!-- return 0; --&gt;
+</code></pre><!-- } -->
+<!-- //JNI 调用 -->
+<!-- JNIEXPORT jstring JNICALL Java_sven_com_apkpatchserver_DiffUtils_genDiff -->
+<pre><code>    &lt;!-- (JNIEnv *env, jclass jcls, jstring oldfile_jstr, jstring newfile_jstr, --&gt;
+     &lt;!-- jstring patchfile_jstr) { --&gt;
+&lt;!-- int argc = 4; --&gt;
+&lt;!-- char *oldfile = (char *) (*env)-&gt;GetStringUTFChars(env, oldfile_jstr, NULL); --&gt;
+&lt;!-- char *newfile = (char *) (*env)-&gt;GetStringUTFChars(env, newfile_jstr, NULL); --&gt;
+&lt;!-- char *patchfile = (char *) (*env)-&gt;GetStringUTFChars(env, patchfile_jstr, NULL); --&gt;
+</code></pre><!-- //参数（第一个参数无效） -->
+<pre><code>&lt;!-- char *argv[4]; --&gt;
+&lt;!-- argv[0] = &quot;bsdiff&quot;; --&gt;
+&lt;!-- argv[1] = oldfile; --&gt;
+&lt;!-- argv[2] = newfile; --&gt;
+&lt;!-- argv[3] = patchfile; --&gt;
+</code></pre><!-- //这个方法是和新方法，他会根据 old.apk new.apk 进行拆分，然后生成 patch 放到指定文件夹下 -->
+<pre><code>&lt;!-- bsdiff_main(argc, argv); --&gt;
+
+&lt;!-- (*env)-&gt;ReleaseStringUTFChars(env, oldfile_jstr, oldfile); --&gt;
+&lt;!-- (*env)-&gt;ReleaseStringUTFChars(env, newfile_jstr, newfile); --&gt;
+&lt;!-- (*env)-&gt;ReleaseStringUTFChars(env, patchfile_jstr, patchfile); --&gt;
+
+&lt;!-- return (*env)-&gt;NewStringUTF(env, &quot;hello hello&quot;); --&gt;
+</code></pre><!-- } -->
+<!-- //void main(int argc, char **argv) { -->
+<!-- // -->
+<!-- //} -->
+<!-- ``` -->
+<!-- 到这里 拆分就完成了。 -->
+<!-- 只需要在java代码里执行如下代码就行 -->
+<!-- ``` -->
+<pre><code>&lt;!-- findViewById(R.id.diff).setOnClickListener(new View.OnClickListener() { --&gt;
+    &lt;!-- @Override --&gt;
+    &lt;!-- public void onClick(View v) { --&gt;
+        &lt;!-- String s = DiffUtils.genDiff(Constants.OLD_APK_PATH, Constants.NEW_APK_PATH, Constants.PATCH_FILE); --&gt;
+    &lt;!-- } --&gt;
+&lt;!-- }); --&gt;
+</code></pre><!-- Constants.OLD_APK_PATH： old.apk 路径 -->
+<!-- Constants.NEW_APK_PATH： new.apk 路径 -->
+<!-- Constants.PATCH_FILE：   生成的patch 路径 -->
+<!-- ``` -->
+<!-- 到这里 拆分 就都讲完了。合并 的代码 大同小异这里就不赘述了。我会把代码放到github上去。 -->
+<!-- ### 使用patch.so 进行apk 与patch的合并。 -->
+<!-- 新建一个项目，假设这个项目就是我们公司的app了。把刚才生成好的 patch.so文件 拿过来 复制到这里 -->
+<!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9f605940a?w=994&h=918&f=png&s=118521) -->
+<!-- 然后我们开始编写 PatchUtils的代码了 -->
+<!-- **注意** -->
+<!-- - 我们如果想完美的使用so文件。我们带么的 名字 和路径 都要和  生成so 项目的代码的路径一致 -->
+<!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9fcfd33ae?w=1144&h=998&f=png&s=159360) -->
+<!-- 不然的话 代码 引用上就会有问题。 -->
+<!-- 这就是为什么我们引用三方so文件 无法运行或者 写的代码报红了 -->
+<!-- 比如这样 -->
+<!-- ![这里写图片描述](https://user-gold-cdn.xitu.io/2018/2/1/161502f9ea25e0fe?w=2382&h=1028&f=png&s=325591) -->
+<!-- 引用成功的话。基本就完成了。 -->
+<!-- 我们只需要在代码里 简单调用就可以了 -->
+<!-- ``` -->
+<pre><code>&lt;!-- class ApkUpdateTask extends AsyncTask&lt;Void, Void, Boolean&gt; { --&gt;
+
+    &lt;!-- @Override --&gt;
+    &lt;!-- protected Boolean doInBackground(Void... params) { --&gt;
+        &lt;!-- try { --&gt;
+            &lt;!-- //1.下载差分包 --&gt;
+            &lt;!-- String oldfile = ApkUtils.getSourceApkPath(MainActivity.this, getPackageName()); --&gt;
+            &lt;!-- //2.合并得到最新版本的APK文件 --&gt;
+            &lt;!-- String newfile = Constants.OLD_2_NEW_APK; --&gt;
+            &lt;!-- String patchfile = Constants.PATCH_FILE; --&gt;
+            &lt;!-- PatchUtils.patch(oldfile, newfile, patchfile); --&gt;
+        &lt;!-- } catch (Exception e) { --&gt;
+            &lt;!-- e.printStackTrace(); --&gt;
+            &lt;!-- return false; --&gt;
+        &lt;!-- } --&gt;
+        &lt;!-- return true; --&gt;
+    &lt;!-- } --&gt;
+    &lt;!-- @Override --&gt;
+    &lt;!-- protected void onPostExecute(Boolean result) { --&gt;
+        &lt;!-- super.onPostExecute(result); --&gt;
+
+        &lt;!-- //3.安装 --&gt;
+        &lt;!-- if (result) { --&gt;
+            &lt;!-- Toast.makeText(MainActivity.this, &quot;您正在进行无流量更新&quot;, Toast.LENGTH_SHORT).show(); --&gt;
+            &lt;!-- ApkUtils.installApk(MainActivity.this, Constants.OLD_2_NEW_APK); --&gt;
+        &lt;!-- } --&gt;
+
+    &lt;!-- } --&gt;
+
+&lt;!-- } --&gt;
+</code></pre><!-- ``` -->
+<!-- 到这里 我们就完成了apk 的 增量更新 -->
+<!-- ## 覆盖安装的一些坑 -->
+<!-- - 增量更新，在手机上安装的 apk。一定要是 release key 打包的，并且 v1 v2 对勾都要选中 -->
+<!-- - 覆盖安装 要适配7.0 -->
+<!-- https://wanghao200906.github.io/2018/01/31/android%20%E4%BD%BF%E7%94%A8FileProvider%20%E5%85%BC%E5%AE%B9apk%20%E5%9C%A87.0%E7%89%88%E6%9C%AC%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/ -->
+<!-- - 覆盖安装不要忘记 这句代码 -->
+<!-- ``` -->
+<pre><code>&lt;!-- intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); --&gt;
+</code></pre><!-- ``` -->
+<!-- - 如果怎么都不行，可以查看 你的apk包是否有读写权限  可以这样 -->
+<!-- ``` -->
+<pre><code>&lt;!-- String[] command = {&quot;chmod&quot;, &quot;777&quot;, Constants.OLD_2_NEW_APK}; --&gt;
+&lt;!-- ProcessBuilder builder = new ProcessBuilder(command); --&gt;
+&lt;!-- try { --&gt;
+    &lt;!-- builder.start(); --&gt;
+&lt;!-- } catch (IOException e) { --&gt;
+    &lt;!-- e.printStackTrace(); --&gt;
+&lt;!-- } --&gt;
+</code></pre><!-- ``` -->
+<!-- 不懂得可以查看代码，最直观 -->
+<!-- https://github.com/wanghao200906/NdkBsDiffPractise -->
 
       
     </div>
@@ -700,7 +1326,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习目的"><span class="nav-number">1.</span> <span class="nav-text">学习目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#演示"><span class="nav-number">2.</span> <span class="nav-text">演示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包的拆分"><span class="nav-number">3.</span> <span class="nav-text">包的拆分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需要的工具"><span class="nav-number">3.1.</span> <span class="nav-text">需要的工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何生成多个so文件（先了解一下）"><span class="nav-number">3.2.</span> <span class="nav-text">如何生成多个so文件（先了解一下）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拆分，合并代码编写。"><span class="nav-number">3.3.</span> <span class="nav-text">拆分，合并代码编写。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用patch-so-进行apk-与patch的合并。"><span class="nav-number">3.4.</span> <span class="nav-text">使用patch.so 进行apk 与patch的合并。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖安装的一些坑"><span class="nav-number">4.</span> <span class="nav-text">覆盖安装的一些坑</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习目的"><span class="nav-number">1.</span> <span class="nav-text">学习目的</span></a></li></ol></div>
             
 
           </div>
